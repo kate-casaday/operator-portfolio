@@ -1,0 +1,187 @@
+{
+  "_note": "SYNTHETIC service catalog for the demo.  Maps a partner's test codes to the collection service a site must offer, the plain-language category the assistant may say in a first text, and a sensitivity flag.  In production this is partner-approved reference data.",
+  "services": {
+    "blood_draw": {
+      "label": "blood draw",
+      "default_category": "blood work"
+    },
+    "urine_collection": {
+      "label": "urine sample",
+      "default_category": "urine test"
+    },
+    "drug_screen_dot": {
+      "label": "DOT drug screen (observed collection)",
+      "default_category": "screening test"
+    },
+    "drug_screen_non_dot": {
+      "label": "non-DOT drug screen",
+      "default_category": "screening test"
+    },
+    "glucose_tolerance": {
+      "label": "glucose tolerance test (timed, 2 hours)",
+      "default_category": "timed blood test",
+      "timed_minutes": 120,
+      "latest_start": "10:00",
+      "fasting": true
+    },
+    "pediatric_draw": {
+      "label": "pediatric blood draw",
+      "default_category": "blood work"
+    },
+    "processing_onsite": {
+      "label": "on-site specimen processing",
+      "default_category": null
+    }
+  },
+  "tests": {
+    "CBC": {
+      "name": "Complete blood count",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "No special preparation is needed for this blood work.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "CMP": {
+      "name": "Comprehensive metabolic",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "Your care team usually asks for fasting: nothing but water for 8 to 12 hours before the draw, unless they told you otherwise.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "A1C": {
+      "name": "Hemoglobin A1c",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "No fasting is needed for this test.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "LIPID": {
+      "name": "Lipid panel",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "Fasting is usually required: nothing but water for 9 to 12 hours before the draw, unless your care team told you otherwise.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "TSH": {
+      "name": "Thyroid (TSH)",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "No special preparation is needed for this test.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "TROP": {
+      "name": "Troponin",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": false
+    },
+    "UCX": {
+      "name": "Urine culture",
+      "category": "urine test",
+      "requires": [
+        "urine_collection"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "No special preparation is needed; drink water as usual.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "UA": {
+      "name": "Urinalysis",
+      "category": "urine test",
+      "requires": [
+        "urine_collection"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "No special preparation is needed; drink water as usual.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "DOT5": {
+      "name": "DOT 5-panel drug screen",
+      "category": "screening test",
+      "requires": [
+        "drug_screen_dot",
+        "urine_collection"
+      ],
+      "sensitive": true
+    },
+    "GTT2": {
+      "name": "2-hour glucose tolerance",
+      "category": "timed blood test",
+      "requires": [
+        "glucose_tolerance",
+        "blood_draw"
+      ],
+      "sensitive": false,
+      "prep_instruction": {
+        "text": "Fasting is required: nothing but water for 8 to 12 hours before, and plan to stay about 2 hours at the site.",
+        "approved_at": "2026-09-16T09:00:00",
+        "approved_by": "partner clinical ops (synthetic)"
+      }
+    },
+    "PEDCBC": {
+      "name": "Pediatric CBC",
+      "category": "blood work",
+      "requires": [
+        "pediatric_draw",
+        "blood_draw"
+      ],
+      "sensitive": false
+    },
+    "HIV": {
+      "name": "HIV screen",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": true
+    },
+    "HCG": {
+      "name": "Pregnancy test (hCG)",
+      "category": "blood work",
+      "requires": [
+        "blood_draw"
+      ],
+      "sensitive": true
+    }
+  },
+  "sensitive_rule": "A sensitive test is never named in any text.  Its category may be used.  If every open order is sensitive and the patient asks what the test is, a person answers.",
+  "_prep_note": "SYNTHETIC partner-approved preparation text. The application sends it VERBATIM for a preparation question and only when every open line has approved text; the model never writes preparation or clinical content."
+}

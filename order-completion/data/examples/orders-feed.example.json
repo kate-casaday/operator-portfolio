@@ -1,0 +1,83 @@
+{
+ "partner_id": "RIVERBEND",
+ "generated_at": "2026-09-16T06:00:00",
+ "synthetic": true,
+ "capabilities": {
+  "record_read": true,
+  "messaging": true,
+  "portal_relay": false,
+  "clinician_queue": {
+   "accepted": true,
+   "owner": "the Riverbend nurse line",
+   "response_hours_business": 4
+  },
+  "booking": true
+ },
+ "patients": [
+  {
+   "source_patient_id": "P-24",
+   "display_name": "Zed Oakes",
+   "phone": "+12075550124",
+   "consent_sms": true,
+   "consent_recorded_at": "2026-06-01T09:00:00",
+   "home_town": "Bath",
+   "zip": "04530",
+   "pcp": {
+    "name": "Dr. Nguyen",
+    "role": "pcp",
+    "team_id": "PCP-1",
+    "contact_route": "portal"
+   },
+   "provenance": {
+    "source": "EHR demographics",
+    "as_of": "2026-09-16T06:00:00"
+   }
+  }
+ ],
+ "orders": [
+  {
+   "source_order_id": "ORD-1024",
+   "source_patient_id": "P-24",
+   "ordered_at": "2026-07-25T09:00:00",
+   "intended_due_at": null,
+   "priority": "routine",
+   "state": "open",
+   "visit_at": "2026-07-25",
+   "ordering_clinician": {
+    "name": "Dr. Okafor",
+    "role": "ordering_clinician",
+    "team_id": "ENDO-2",
+    "contact_route": "portal"
+   },
+   "episode_team": {
+    "name": "Riverbend Endocrinology",
+    "role": "episode_team",
+    "team_id": "ENDO-2",
+    "contact_route": "portal"
+   },
+   "lines": [
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c",
+     "status": "outstanding"
+    },
+    {
+     "test_code": "LIPID",
+     "test_name": "Lipid panel",
+     "status": "outstanding"
+    }
+   ],
+   "rationale": {
+    "source_ref": "NOTE-2024",
+    "excerpt": "Recheck A1c and lipids in 3 months to assess response to metformin.",
+    "author": "Dr. Okafor",
+    "authored_at": "2026-07-25T10:12:00",
+    "extraction_method": "partner_feed"
+   },
+   "provenance": {
+    "source": "order system",
+    "as_of": "2026-09-16T06:00:00"
+   }
+  }
+ ]
+}

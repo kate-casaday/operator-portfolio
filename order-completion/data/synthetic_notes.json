@@ -1,0 +1,81 @@
+{
+ "partner_id": "RIVERBEND",
+ "generated_at": "2026-09-15T06:00:00",
+ "synthetic": true,
+ "capabilities": {
+  "record_read": true
+ },
+ "_note": "SYNTHETIC clinician notes for the chart-review workflow. P-12 documented rationale (journey); P-01 documented; P-02 mention without reason; P-03 two notes that conflict; P-04 no notes; P-05 stale/expired prep guidance in a note (not partner reference); P-07 rationale in a note whose test is later replaced.",
+ "clinical_notes": [
+  {
+   "note_id": "NOTE-1201",
+   "source_patient_id": "P-12",
+   "author": "Dr. Okafor",
+   "author_role": "ordering_clinician",
+   "authored_at": "2026-07-19T14:20:00",
+   "encounter_ref": "ENC-1201",
+   "access_basis": "authorized_manual_review",
+   "text": "Assessment: hyperlipidemia on atorvastatin 20 mg, started 8 weeks ago. Plan: recheck lipid panel in 8 weeks to assess response to statin. Discussed diet. RTC 3 months."
+  },
+  {
+   "note_id": "NOTE-0101",
+   "source_patient_id": "P-01",
+   "author": "Dr. Casaday",
+   "author_role": "ordering_clinician",
+   "authored_at": "2026-07-20T09:40:00",
+   "encounter_ref": "ENC-0101",
+   "access_basis": "authorized_manual_review",
+   "text": "Chief complaint: fatigue x 6 weeks. Plan: CBC to evaluate fatigue and check for anemia. Sleep hygiene reviewed."
+  },
+  {
+   "note_id": "NOTE-0201",
+   "source_patient_id": "P-02",
+   "author": "Dr. Patel",
+   "author_role": "ordering_clinician",
+   "authored_at": "2026-07-18T11:00:00",
+   "encounter_ref": "ENC-0201",
+   "access_basis": "authorized_manual_review",
+   "text": "Annual visit. Labs ordered including lipid panel. Vaccines up to date. Follow up in one year."
+  },
+  {
+   "note_id": "NOTE-0301",
+   "source_patient_id": "P-03",
+   "author": "Dr. Nguyen",
+   "author_role": "ordering_clinician",
+   "authored_at": "2026-07-21T10:00:00",
+   "encounter_ref": "ENC-0301",
+   "access_basis": "authorized_manual_review",
+   "text": "Plan: A1c to monitor prediabetes; continue lifestyle changes."
+  },
+  {
+   "note_id": "NOTE-0302",
+   "source_patient_id": "P-03",
+   "author": "NP Rivera",
+   "author_role": "episode_team",
+   "authored_at": "2026-07-22T16:30:00",
+   "encounter_ref": "ENC-0302",
+   "access_basis": "authorized_manual_review",
+   "text": "Telephone note. Patient reports new steroid course from dermatology. Will recheck A1c to screen for steroid-induced hyperglycemia."
+  },
+  {
+   "note_id": "NOTE-0501",
+   "source_patient_id": "P-05",
+   "author": "Dr. Casaday",
+   "author_role": "ordering_clinician",
+   "authored_at": "2026-07-22T09:00:00",
+   "encounter_ref": "ENC-0501",
+   "access_basis": "authorized_manual_review",
+   "text": "Plan: CMP to check kidney function before adjusting lisinopril. Told patient no need to fast for this one."
+  },
+  {
+   "note_id": "NOTE-0701",
+   "source_patient_id": "P-07",
+   "author": "Dr. Nguyen",
+   "author_role": "ordering_clinician",
+   "authored_at": "2026-07-23T13:00:00",
+   "encounter_ref": "ENC-0701",
+   "access_basis": "authorized_manual_review",
+   "text": "Plan: lipid panel to evaluate cardiovascular risk before deciding on a statin."
+  }
+ ]
+}

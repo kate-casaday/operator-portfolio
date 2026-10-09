@@ -1,0 +1,6 @@
+var/
+__pycache__/
+*.pyc
+.env
+feedback/exports/
+feedback/archive-*.json

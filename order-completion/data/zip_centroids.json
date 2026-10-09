@@ -1,0 +1,93 @@
+{
+ "_note": "SYNTHETIC/approximate zip and town centroids for the geocoder stand-in. Production: the Census Bureau geocoder (free, keyless) or a paid geocoder, behind the same Geocoder interface. Public geography, not patient data.",
+ "zips": {
+  "04530": {
+   "town": "Bath",
+   "lat": 43.9109,
+   "lon": -69.8206
+  },
+  "04011": {
+   "town": "Brunswick",
+   "lat": 43.914,
+   "lon": -69.9653
+  },
+  "04086": {
+   "town": "Topsham",
+   "lat": 43.9276,
+   "lon": -69.9759
+  },
+  "04578": {
+   "town": "Wiscasset",
+   "lat": 44.0029,
+   "lon": -69.6656
+  },
+  "04032": {
+   "town": "Freeport",
+   "lat": 43.857,
+   "lon": -70.1031
+  },
+  "04579": {
+   "town": "Woolwich",
+   "lat": 43.9184,
+   "lon": -69.797
+  },
+  "04562": {
+   "town": "Phippsburg",
+   "lat": 43.8209,
+   "lon": -69.8145
+  },
+  "04079": {
+   "town": "Harpswell",
+   "lat": 43.8018,
+   "lon": -69.9856
+  },
+  "04008": {
+   "town": "Bowdoinham",
+   "lat": 44.0101,
+   "lon": -69.8942
+  },
+  "04357": {
+   "town": "Richmond",
+   "lat": 44.0876,
+   "lon": -69.799
+  },
+  "04543": {
+   "town": "Damariscotta",
+   "lat": 44.0329,
+   "lon": -69.5187
+  },
+  "04101": {
+   "town": "Portland",
+   "lat": 43.6591,
+   "lon": -70.2568
+  },
+  "04401": {
+   "town": "Bangor",
+   "lat": 44.8016,
+   "lon": -68.7712
+  },
+  "04240": {
+   "town": "Lewiston",
+   "lat": 44.1004,
+   "lon": -70.2148
+  }
+ },
+ "towns_extra": {
+  "Portland": {
+   "lat": 43.6591,
+   "lon": -70.2568
+  },
+  "Bangor": {
+   "lat": 44.8016,
+   "lon": -68.7712
+  },
+  "Lewiston": {
+   "lat": 44.1004,
+   "lon": -70.2148
+  },
+  "Boston": {
+   "lat": 42.3601,
+   "lon": -71.0589
+  }
+ }
+}

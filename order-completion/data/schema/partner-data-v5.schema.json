@@ -1,0 +1,755 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "https://stealthco.example/schema/partner-data-v5.schema.json",
+ "title": "StealthCo partner data v5",
+ "description": "Machine-readable companion to docs/partner-data-specification.md. Tier 1 fields are required to initiate outreach; tier 2 enable specific answers/actions; tier 3 enrich. Nothing here asserts a vendor interface.",
+ "type": "object",
+ "required": [
+  "partner_id",
+  "generated_at",
+  "capabilities"
+ ],
+ "properties": {
+  "partner_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "generated_at": {
+   "type": "string",
+   "format": "date-time"
+  },
+  "synthetic": {
+   "type": "boolean",
+   "description": "true only for synthetic data; the prototype refuses to export evidence otherwise"
+  },
+  "capabilities": {
+   "type": "object",
+   "description": "Partner-authorized operational integration flags. Record read never implies messaging or booking.",
+   "properties": {
+    "record_read": {
+     "type": "boolean",
+     "default": false,
+     "description": "a patient-authorized or partner-extracted record connection exists"
+    },
+    "messaging": {
+     "type": "boolean",
+     "default": false
+    },
+    "portal_relay": {
+     "type": "boolean",
+     "default": false
+    },
+    "clinician_queue": {
+     "type": "object",
+     "properties": {
+      "accepted": {
+       "type": "boolean"
+      },
+      "owner": {
+       "type": "string"
+      },
+      "response_hours_business": {
+       "type": "number"
+      }
+     }
+    },
+    "booking": {
+     "type": "boolean",
+     "default": false
+    }
+   },
+   "additionalProperties": false
+  },
+  "patients": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/patient"
+   }
+  },
+  "orders": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/order"
+   }
+  },
+  "order_events": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/order_event"
+   }
+  },
+  "care_teams": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/care_team"
+   }
+  },
+  "clinical_notes": {
+   "type": "array",
+   "items": {
+    "$ref": "#/$defs/clinical_note"
+   },
+   "description": "Tier 2: only under a record connection or an authorized chart-review agreement"
+  },
+  "prep_instructions": {
+   "type": "object",
+   "additionalProperties": {
+    "$ref": "#/$defs/approved_text"
+   }
+  },
+  "general_education": {
+   "type": "object",
+   "additionalProperties": {
+    "$ref": "#/$defs/approved_text"
+   }
+  },
+  "directory": {
+   "$ref": "#/$defs/directory"
+  },
+  "escalation_routes": {
+   "$ref": "#/$defs/escalation_routes"
+  },
+  "urgency_policy": {
+   "$ref": "#/$defs/urgency_policy"
+  }
+ },
+ "$defs": {
+  "provenance": {
+   "type": "object",
+   "required": [
+    "source",
+    "as_of"
+   ],
+   "properties": {
+    "source": {
+     "type": "string",
+     "description": "system or person of record, e.g. 'EHR demographics', 'chart review: K. Casaday (operator)'"
+    },
+    "as_of": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "verified_by": {
+     "type": "string"
+    },
+    "verified_at": {
+     "type": "string",
+     "format": "date-time"
+    }
+   }
+  },
+  "approved_text": {
+   "type": "object",
+   "required": [
+    "text",
+    "approved_by",
+    "approved_at"
+   ],
+   "properties": {
+    "text": {
+     "type": "string"
+    },
+    "approved_by": {
+     "type": "string"
+    },
+    "approved_at": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "expires_at": {
+     "type": "string",
+     "format": "date-time"
+    }
+   }
+  },
+  "patient": {
+   "type": "object",
+   "required": [
+    "source_patient_id",
+    "display_name",
+    "phone",
+    "consent_sms"
+   ],
+   "properties": {
+    "source_patient_id": {
+     "type": "string"
+    },
+    "display_name": {
+     "type": "string"
+    },
+    "phone": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "pattern": "^\\+1\\d{10}$"
+    },
+    "consent_sms": {
+     "type": "boolean"
+    },
+    "consent_recorded_at": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "home_town": {
+     "type": "string"
+    },
+    "zip": {
+     "type": "string",
+     "pattern": "^\\d{5}$"
+    },
+    "language": {
+     "type": "string",
+     "default": "en"
+    },
+    "pcp": {
+     "$ref": "#/$defs/clinician"
+    },
+    "contact_preferences": {
+     "type": "object",
+     "properties": {
+      "best_hours": {
+       "type": "string"
+      },
+      "caregiver": {
+       "type": "object",
+       "properties": {
+        "name": {
+         "type": "string"
+        },
+        "phone": {
+         "type": "string"
+        },
+        "authorization_ref": {
+         "type": "string",
+         "description": "partner record of the caregiver authorization; a patient text is not one"
+        }
+       }
+      }
+     }
+    },
+    "provenance": {
+     "$ref": "#/$defs/provenance"
+    }
+   }
+  },
+  "clinician": {
+   "type": "object",
+   "required": [
+    "name"
+   ],
+   "properties": {
+    "name": {
+     "type": "string"
+    },
+    "role": {
+     "type": "string",
+     "enum": [
+      "ordering_clinician",
+      "pcp",
+      "episode_team",
+      "nurse_line"
+     ]
+    },
+    "team_id": {
+     "type": "string"
+    },
+    "contact_route": {
+     "type": "string",
+     "enum": [
+      "portal",
+      "phone",
+      "clinician_queue",
+      "none"
+     ]
+    }
+   }
+  },
+  "order": {
+   "type": "object",
+   "required": [
+    "source_order_id",
+    "source_patient_id",
+    "ordered_at",
+    "priority",
+    "state",
+    "lines",
+    "ordering_clinician"
+   ],
+   "properties": {
+    "source_order_id": {
+     "type": "string"
+    },
+    "source_patient_id": {
+     "type": "string"
+    },
+    "ordered_at": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "intended_due_at": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "format": "date-time"
+    },
+    "priority": {
+     "type": "string",
+     "enum": [
+      "routine",
+      "urgent",
+      "stat"
+     ]
+    },
+    "state": {
+     "type": "string",
+     "enum": [
+      "open",
+      "cancelled",
+      "resulted",
+      "replaced"
+     ]
+    },
+    "visit_at": {
+     "type": "string",
+     "format": "date"
+    },
+    "ordering_clinician": {
+     "$ref": "#/$defs/clinician"
+    },
+    "episode_team": {
+     "$ref": "#/$defs/clinician"
+    },
+    "lines": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "object",
+      "required": [
+       "test_code",
+       "test_name"
+      ],
+      "properties": {
+       "test_code": {
+        "type": "string"
+       },
+       "test_name": {
+        "type": "string"
+       },
+       "status": {
+        "type": "string",
+        "enum": [
+         "outstanding",
+         "resulted",
+         "cancelled"
+        ]
+       }
+      }
+     }
+    },
+    "rationale": {
+     "type": "object",
+     "description": "Tier 2: the documented reason AS WRITTEN. Never a paraphrase produced by StealthCo.",
+     "required": [
+      "source_ref",
+      "excerpt"
+     ],
+     "properties": {
+      "source_ref": {
+       "type": "string"
+      },
+      "excerpt": {
+       "type": "string"
+      },
+      "author": {
+       "type": "string"
+      },
+      "authored_at": {
+       "type": "string",
+       "format": "date-time"
+      },
+      "extraction_method": {
+       "type": "string",
+       "enum": [
+        "partner_feed",
+        "manual_review",
+        "rule_extract",
+        "model_extract"
+       ]
+      }
+     }
+    },
+    "provenance": {
+     "$ref": "#/$defs/provenance"
+    }
+   }
+  },
+  "order_event": {
+   "type": "object",
+   "required": [
+    "event_id",
+    "source_order_id",
+    "kind",
+    "at"
+   ],
+   "properties": {
+    "event_id": {
+     "type": "string"
+    },
+    "source_order_id": {
+     "type": "string"
+    },
+    "kind": {
+     "type": "string",
+     "enum": [
+      "result_finalized",
+      "cancelled",
+      "replaced",
+      "modified",
+      "attended",
+      "added"
+     ]
+    },
+    "at": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "lines": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "description": "result_finalized / modified: test codes"
+    },
+    "replacement": {
+     "$ref": "#/$defs/order",
+     "description": "replaced: the new order that supersedes source_order_id"
+    },
+    "attendance": {
+     "type": "object",
+     "properties": {
+      "site_id": {
+       "type": "string"
+      },
+      "arrived_at": {
+       "type": "string",
+       "format": "date-time"
+      },
+      "confirmation_id": {
+       "type": "string"
+      }
+     }
+    },
+    "actor": {
+     "type": "string",
+     "description": "the authorized system or person that generated the event"
+    }
+   }
+  },
+  "care_team": {
+   "type": "object",
+   "required": [
+    "source_patient_id"
+   ],
+   "properties": {
+    "source_patient_id": {
+     "type": "string"
+    },
+    "pcp": {
+     "$ref": "#/$defs/clinician"
+    },
+    "episode_teams": {
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/clinician"
+     }
+    },
+    "provenance": {
+     "$ref": "#/$defs/provenance"
+    }
+   }
+  },
+  "clinical_note": {
+   "type": "object",
+   "required": [
+    "note_id",
+    "source_patient_id",
+    "author",
+    "authored_at",
+    "text"
+   ],
+   "properties": {
+    "note_id": {
+     "type": "string"
+    },
+    "source_patient_id": {
+     "type": "string"
+    },
+    "author": {
+     "type": "string"
+    },
+    "author_role": {
+     "type": "string"
+    },
+    "authored_at": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "encounter_ref": {
+     "type": "string"
+    },
+    "text": {
+     "type": "string"
+    },
+    "access_basis": {
+     "type": "string",
+     "enum": [
+      "patient_authorized_connection",
+      "partner_extract",
+      "authorized_manual_review"
+     ]
+    }
+   }
+  },
+  "directory": {
+   "type": "object",
+   "required": [
+    "partner_name",
+    "clinician_contact",
+    "sites"
+   ],
+   "properties": {
+    "partner_name": {
+     "type": "string"
+    },
+    "clinician_contact": {
+     "type": "object",
+     "required": [
+      "name",
+      "phone"
+     ],
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "phone": {
+       "type": "string"
+      },
+      "accepts_queue": {
+       "type": "boolean"
+      },
+      "response_hours_business": {
+       "type": "number"
+      }
+     }
+    },
+    "patient_portal": {
+     "type": "object",
+     "required": [
+      "name",
+      "link",
+      "approved_at",
+      "approved_by"
+     ],
+     "properties": {
+      "name": {
+       "type": "string"
+      },
+      "link": {
+       "type": "string",
+       "format": "uri"
+      },
+      "approved_at": {
+       "type": "string"
+      },
+      "approved_by": {
+       "type": "string"
+      }
+     }
+    },
+    "sites": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "id",
+       "name",
+       "town",
+       "address",
+       "hours",
+       "verified_at",
+       "verified_by"
+      ],
+      "properties": {
+       "id": {
+        "type": "string"
+       },
+       "name": {
+        "type": "string"
+       },
+       "town": {
+        "type": "string"
+       },
+       "address": {
+        "type": "string"
+       },
+       "hours": {
+        "type": "object"
+       },
+       "services": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "service_hours": {
+        "type": "object"
+       },
+       "visit_requirements": {
+        "type": "string"
+       },
+       "lat": {
+        "type": "number"
+       },
+       "lon": {
+        "type": "number"
+       },
+       "verified_at": {
+        "type": "string"
+       },
+       "verified_by": {
+        "type": "string"
+       },
+       "scheduling": {
+        "type": "object",
+        "properties": {
+         "adapter": {
+          "type": "string",
+          "enum": [
+           "simulated",
+           "partner"
+          ]
+         },
+         "slot_minutes": {
+          "type": "integer"
+         },
+         "lead_time_hours": {
+          "type": "integer"
+         }
+        }
+       }
+      }
+     }
+    },
+    "approved_instructions": {
+     "type": "object",
+     "additionalProperties": {
+      "$ref": "#/$defs/approved_text"
+     }
+    },
+    "urgent_care": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "required": [
+       "name",
+       "address",
+       "phone",
+       "verified_at",
+       "verified_by"
+      ]
+     }
+    },
+    "mobile_routes": {
+     "type": "array"
+    }
+   }
+  },
+  "escalation_routes": {
+   "type": "object",
+   "description": "reason \u2192 receiving team, response window, channel. Partner-signed.",
+   "required": [
+    "approved"
+   ],
+   "properties": {
+    "approved": {
+     "type": "boolean"
+    },
+    "approved_by": {
+     "type": "string"
+    },
+    "approved_at": {
+     "type": "string"
+    },
+    "routes": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "object",
+      "required": [
+       "team"
+      ],
+      "properties": {
+       "team": {
+        "type": "string",
+        "enum": [
+         "ordering_clinician",
+         "pcp",
+         "episode_team",
+         "nurse_line"
+        ]
+       },
+       "response_hours_business": {
+        "type": "number"
+       },
+       "channel": {
+        "type": "string",
+        "enum": [
+         "portal_link",
+         "portal_relay",
+         "clinician_queue",
+         "phone"
+        ]
+       }
+      }
+     }
+    }
+   }
+  },
+  "urgency_policy": {
+   "type": "object",
+   "required": [
+    "status"
+   ],
+   "properties": {
+    "status": {
+     "type": "string",
+     "enum": [
+      "pending_clinical_approval",
+      "approved"
+     ]
+    },
+    "approved_by": {
+     "type": "string"
+    },
+    "approved_at": {
+     "type": "string"
+    },
+    "levels": {
+     "type": "object",
+     "additionalProperties": {
+      "type": "object",
+      "properties": {
+       "response_hours_business": {
+        "type": "number"
+       },
+       "description": {
+        "type": "string"
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}

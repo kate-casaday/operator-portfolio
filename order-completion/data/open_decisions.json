@@ -1,0 +1,53 @@
+{
+  "_readme": "Unresolved product decisions surfaced by the prototype. Shown on the dashboard. Edit freely; this is Kate's list, not the models'.",
+  "decisions": [
+    {
+      "id": "D1",
+      "title": "Silent hold on 'already done'",
+      "detail": "When a patient says the labs are already done and the partner never confirms within the grace period, should the service text again, or stay silent until Kate resolves the item?",
+      "default": "silent until Kate resolves"
+    },
+    {
+      "id": "D2",
+      "title": "Safety texts during a Kate pause",
+      "detail": "Should clinical/staff acknowledgements (with the clinic phone and 911 language) go out while outreach is paused?",
+      "default": "yes"
+    },
+    {
+      "id": "D3",
+      "title": "Overdue threshold",
+      "detail": "15-45 days is configurable; the partner must validate the number for its own order mix. Orders with a future intended due date are never overdue.",
+      "default": "45"
+    },
+    {
+      "id": "D4",
+      "title": "Identity check before order detail",
+      "detail": "Today the first text names the ordering provider but no test. Should any order detail require a date-of-birth challenge first?",
+      "default": "no challenge; provider name only"
+    },
+    {
+      "id": "D5",
+      "title": "External completion attestation",
+      "detail": "Kate can mark an order 'completed outside the network' with an evidence note. Who at the partner is allowed to attest, and does it count for the pilot's completion metric?",
+      "default": "Kate attests; counted separately from partner-verified"
+    },
+    {
+      "id": "D6",
+      "title": "Constrained model wording",
+      "detail": "Every patient-facing sentence is a template. Allow the model to fill one bounded slot (e.g., a warmer acknowledgement) once a labeled eval exists?",
+      "default": "templates only"
+    },
+    {
+      "id": "D7",
+      "title": "Fewer-reminders cadence",
+      "detail": "A patient who asks for fewer reminders gets exactly one more in 7 days, then the order is marked unresolved. Is one the right number?",
+      "default": "one more, 7 days"
+    },
+    {
+      "id": "D8",
+      "title": "Plan survives a replaced constraint",
+      "detail": "When a patient replaces a constraint (e.g. 'mornings only now') and the existing walk-in plan still fits the new constraint, the plan stands without re-confirmation. Should the service re-confirm instead?",
+      "default": "plan stands if still feasible"
+    }
+  ]
+}

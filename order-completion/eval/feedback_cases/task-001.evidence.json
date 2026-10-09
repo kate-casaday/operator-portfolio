@@ -1,0 +1,855 @@
+{
+ "feedback_id": 1,
+ "interpretation": {
+  "label": "defect",
+  "should_have": "Acknowledge that Saturday morning is easier and show only the relevant hours. Avoid repeating the address, weekday hours, and preparation instructions. For example: \u201cSaturday morning works with the Brunswick lab\u2019s hours: 8 am\u2013noon. They accept walk-ins. Would you like the address or the scheduling link?\u201d Don\u2019t imply an appointment has been reserved.",
+  "notes": "The current response feels like a directory listing. \u201cWhich works for you?\u201d is confusing when only one location is offered. The patient has already supplied a preference; acknowledge it and help them take the next step. Give additional details when needed."
+ },
+ "evidence": {
+  "captured_at": "2026-09-15T10:00:00",
+  "software": {
+   "ocp_version": "0.3.0",
+   "git_commit": "c5b998a"
+  },
+  "configuration": {
+   "model_adapter": "mock",
+   "model_id": "mock-rules-v1",
+   "model_simulated": true,
+   "messaging_adapter": "simulated",
+   "messaging_simulated": true,
+   "policy": {
+    "min_order_age_days": 45,
+    "reduced_followup_interval_days": 7,
+    "reduced_max_outreach_attempts": 2,
+    "max_outreach_attempts": 4,
+    "followup_interval_days": 3,
+    "reminder_lead_hours": 20,
+    "plan_verification_grace_days": 5,
+    "quiet_hours_start": "20:00",
+    "quiet_hours_end": "08:00",
+    "clinician_hours_start": "08:00",
+    "clinician_hours_end": "17:00",
+    "clinician_weekdays_only": true,
+    "stale_feed_hours": 48,
+    "max_model_calls_per_conversation": 20,
+    "max_tokens_per_conversation": 60000,
+    "max_outbound_per_conversation": 12,
+    "max_inbound_per_conversation": 40,
+    "max_inbound_chars": 1000,
+    "model_confidence_floor": 0.6,
+    "model_max_retries": 2,
+    "sms_max_attempts": 3,
+    "max_message_segments": 3
+   },
+   "overdue_threshold_days": 45,
+   "directory_partner": "Riverbend Health",
+   "directory_sites_valid_now": [
+    "RB-BATH",
+    "RB-BRUNS"
+   ],
+   "directory_records_now": {
+    "sites": [
+     {
+      "id": "RB-BATH",
+      "name": "Riverbend Lab - Bath",
+      "town": "Bath",
+      "address": "10 Synthetic St, Bath ME",
+      "hours": {
+       "mon": [
+        "07:00",
+        "16:00"
+       ],
+       "tue": [
+        "07:00",
+        "16:00"
+       ],
+       "wed": [
+        "07:00",
+        "16:00"
+       ],
+       "thu": [
+        "07:00",
+        "16:00"
+       ],
+       "fri": [
+        "07:00",
+        "16:00"
+       ]
+      },
+      "visit_requirements": "Walk in, no appointment. Bring a photo ID.",
+      "verified_at": "2026-09-10T09:00:00",
+      "verified_by": "partner ops (synthetic)"
+     },
+     {
+      "id": "RB-BRUNS",
+      "name": "Riverbend Lab - Brunswick",
+      "town": "Brunswick",
+      "address": "22 Example Rd, Brunswick ME",
+      "hours": {
+       "mon": [
+        "07:00",
+        "19:00"
+       ],
+       "tue": [
+        "07:00",
+        "19:00"
+       ],
+       "wed": [
+        "07:00",
+        "19:00"
+       ],
+       "thu": [
+        "07:00",
+        "19:00"
+       ],
+       "fri": [
+        "07:00",
+        "19:00"
+       ],
+       "sat": [
+        "08:00",
+        "12:00"
+       ]
+      },
+      "visit_requirements": "Walk in or book online. Bring a photo ID and your insurance card if you have one.",
+      "verified_at": "2026-09-10T09:00:00",
+      "verified_by": "partner ops (synthetic)"
+     }
+    ],
+    "instructions": {
+     "transport": {
+      "text": "Riverbend has a free ride program for lab visits; call 207-555-0199 to book one.",
+      "approved_at": "2026-09-10T09:00:00",
+      "approved_by": "partner ops (synthetic)"
+     },
+     "scheduling_link": {
+      "text": "https://example.invalid/riverbend/schedule",
+      "approved_at": "2026-09-10T09:00:00",
+      "approved_by": "partner ops (synthetic)"
+     }
+    }
+   },
+   "directory_sites_rejected_now": [
+    "RB-TOPS: verification 253 days old"
+   ],
+   "template_id": "offer_sites_constrained",
+   "template_text": "{partner_name}: Open when you said you're free: {site_1}. {site_2}.{link_line} Which works for you?"
+  },
+  "patient": {
+   "synthetic": true,
+   "source_patient_id": "P-02",
+   "partner_id": "RIVERBEND",
+   "display_name": "Ben Ortiz",
+   "home_town": "Brunswick",
+   "language": "en",
+   "consent_sms": 1
+  },
+  "conversation": {
+   "id": 2,
+   "state": "engaged",
+   "next_action": "followup",
+   "next_action_at": "2026-09-18T10:00:00",
+   "next_action_reason": "no reply yet; follow-up 2 of 4 in 3 days",
+   "outreach_attempts": 1,
+   "episode": 1,
+   "epoch": 0,
+   "agreed_site_id": null,
+   "agreed_when": null,
+   "agreed_date": null,
+   "pending_site_id": null,
+   "model_calls": 2,
+   "outbound_count": 3,
+   "inbound_count": 2
+  },
+  "flagged_message": {
+   "id": 24,
+   "direction": "outbound",
+   "kind": "reply",
+   "status": "sent",
+   "template_id": "offer_sites_constrained",
+   "body": "Riverbend Health: Open when you said you're free: Riverbend Lab - Brunswick, 22 Example Rd, Brunswick ME (Mon-Fri 7am-7pm, Sat 8am-12pm). Walk in or book online. Bring a photo ID and your insurance card if you have one. (only one location listed). You can also book online: https://example.invalid/riverbend/schedule. Which works for you?",
+   "decision": {
+    "intent": "scheduling_barrier",
+    "confidence": 0.8,
+    "constraints_from_message": {
+     "before_time": "12:00",
+     "weekday": "sat",
+     "weekend_ok": true
+    },
+    "preferences_active": {
+     "before_time": "12:00",
+     "weekday": "sat",
+     "weekend_ok": true
+    },
+    "effective_constraints": {
+     "before_time": "12:00",
+     "weekday": "sat",
+     "weekend_ok": true
+    },
+    "model": "mock-rules-v1",
+    "simulated": true,
+    "rule": "offer:filter",
+    "filter": {
+     "before_time": "12:00",
+     "weekday": "sat",
+     "weekend_ok": true
+    },
+    "sites_offered": [
+     "RB-BRUNS"
+    ],
+    "link_offered": true,
+    "verified_directory": true,
+    "reason": "sites from the verified directory matching the effective constraints",
+    "template": "offer_sites_constrained",
+    "kind": "reply",
+    "response_time_snapshot": {
+     "sim_clock": "2026-09-15T10:00:00",
+     "overdue_threshold_days": 45,
+     "policy": {
+      "min_order_age_days": 45,
+      "reduced_followup_interval_days": 7,
+      "reduced_max_outreach_attempts": 2,
+      "max_outreach_attempts": 4,
+      "followup_interval_days": 3,
+      "reminder_lead_hours": 20,
+      "plan_verification_grace_days": 5,
+      "quiet_hours_start": "20:00",
+      "quiet_hours_end": "08:00",
+      "clinician_hours_start": "08:00",
+      "clinician_hours_end": "17:00",
+      "clinician_weekdays_only": true,
+      "stale_feed_hours": 48,
+      "max_model_calls_per_conversation": 20,
+      "max_tokens_per_conversation": 60000,
+      "max_outbound_per_conversation": 12,
+      "max_inbound_per_conversation": 40,
+      "max_inbound_chars": 1000,
+      "model_confidence_floor": 0.6,
+      "model_max_retries": 2,
+      "sms_max_attempts": 3,
+      "max_message_segments": 3
+     },
+     "directory_records": {
+      "sites": {
+       "RB-BRUNS": {
+        "id": "RB-BRUNS",
+        "name": "Riverbend Lab - Brunswick",
+        "town": "Brunswick",
+        "address": "22 Example Rd, Brunswick ME",
+        "hours": {
+         "mon": [
+          "07:00",
+          "19:00"
+         ],
+         "tue": [
+          "07:00",
+          "19:00"
+         ],
+         "wed": [
+          "07:00",
+          "19:00"
+         ],
+         "thu": [
+          "07:00",
+          "19:00"
+         ],
+         "fri": [
+          "07:00",
+          "19:00"
+         ],
+         "sat": [
+          "08:00",
+          "12:00"
+         ]
+        },
+        "visit_requirements": "Walk in or book online. Bring a photo ID and your insurance card if you have one.",
+        "verified_at": "2026-09-10T09:00:00",
+        "verified_by": "partner ops (synthetic)"
+       }
+      },
+      "instructions": {
+       "scheduling_link": {
+        "text": "https://example.invalid/riverbend/schedule",
+        "approved_at": "2026-09-10T09:00:00",
+        "approved_by": "partner ops (synthetic)"
+       }
+      }
+     },
+     "model_adapter": "mock",
+     "model_id": "mock-rules-v1",
+     "model_simulated": true,
+     "template_text": "{partner_name}: Open when you said you're free: {site_1}. {site_2}.{link_line} Which works for you?",
+     "rendered_body_sha1": "1e530f32198a",
+     "directory_content": {
+      "sites": {
+       "RB-BRUNS": "1552b3ec0e025dcc"
+      },
+      "instructions": {
+       "scheduling_link": "eba9c131f641b524"
+      }
+     },
+     "feed_stale": false,
+     "conversation_state": "engaged",
+     "epoch": 0,
+     "episode": 1
+    }
+   },
+   "created_at": "2026-09-15T10:00:00"
+  },
+  "thread_through_flagged_message": [
+   {
+    "id": 2,
+    "direction": "outbound",
+    "kind": "scheduled",
+    "status": "sent",
+    "template_id": "outreach_initial",
+    "body": "Riverbend Health: Hi Ben, this is an automated text service for Riverbend Health patients. Dr. Synthetic ordered lab work for you that's still open, and we can help you get it done. Reply with a day that works or any question. Reply STOP to opt out.",
+    "decision": {
+     "rule": "cadence",
+     "attempt": 1,
+     "max_attempts": 4,
+     "interval_days": 3,
+     "reduced_cadence": false,
+     "reduced_allowance_before": null,
+     "reason": "scheduled outreach attempt 1 (limit 4)",
+     "template": "outreach_initial",
+     "kind": "scheduled",
+     "response_time_snapshot": {
+      "sim_clock": "2026-09-15T10:00:00",
+      "overdue_threshold_days": 45,
+      "policy": {
+       "min_order_age_days": 45,
+       "reduced_followup_interval_days": 7,
+       "reduced_max_outreach_attempts": 2,
+       "max_outreach_attempts": 4,
+       "followup_interval_days": 3,
+       "reminder_lead_hours": 20,
+       "plan_verification_grace_days": 5,
+       "quiet_hours_start": "20:00",
+       "quiet_hours_end": "08:00",
+       "clinician_hours_start": "08:00",
+       "clinician_hours_end": "17:00",
+       "clinician_weekdays_only": true,
+       "stale_feed_hours": 48,
+       "max_model_calls_per_conversation": 20,
+       "max_tokens_per_conversation": 60000,
+       "max_outbound_per_conversation": 12,
+       "max_inbound_per_conversation": 40,
+       "max_inbound_chars": 1000,
+       "model_confidence_floor": 0.6,
+       "model_max_retries": 2,
+       "sms_max_attempts": 3,
+       "max_message_segments": 3
+      },
+      "directory_records": {
+       "sites": {},
+       "instructions": {}
+      },
+      "model_adapter": "mock",
+      "model_id": "mock-rules-v1",
+      "model_simulated": true,
+      "template_text": "{partner_name}: Hi {first_name}, this is an automated text service for {partner_name} patients. {provider} ordered lab work for you that's still open, and we can help you get it done. Reply with a day that works or any question. Reply STOP to opt out.",
+      "rendered_body_sha1": "89750b9793b8",
+      "directory_content": {
+       "sites": {},
+       "instructions": {}
+      },
+      "feed_stale": false,
+      "conversation_state": "new",
+      "epoch": 0,
+      "episode": 1
+     }
+    },
+    "created_at": "2026-09-15T10:00:00",
+    "sent_at": "2026-09-15T10:00:00"
+   },
+   {
+    "id": 21,
+    "direction": "inbound",
+    "kind": "reply",
+    "status": "processed",
+    "template_id": null,
+    "body": "I work until 6 and can only go on Thursdays.",
+    "decision": null,
+    "created_at": "2026-09-15T10:00:00",
+    "sent_at": null
+   },
+   {
+    "id": 22,
+    "direction": "outbound",
+    "kind": "reply",
+    "status": "sent",
+    "template_id": "offer_sites_constrained",
+    "body": "Riverbend Health: Open when you said you're free: Riverbend Lab - Brunswick, 22 Example Rd, Brunswick ME (Mon-Fri 7am-7pm, Sat 8am-12pm). Walk in or book online. Bring a photo ID and your insurance card if you have one. (only one location listed). You can also book online: https://example.invalid/riverbend/schedule. Which works for you?",
+    "decision": {
+     "intent": "scheduling_barrier",
+     "confidence": 0.8,
+     "constraints_from_message": {
+      "after_time": "18:00",
+      "weekday": "thu",
+      "evening_ok": true
+     },
+     "preferences_active": {
+      "after_time": "18:00",
+      "weekday": "thu",
+      "evening_ok": true
+     },
+     "effective_constraints": {
+      "after_time": "18:00",
+      "weekday": "thu",
+      "evening_ok": true
+     },
+     "model": "mock-rules-v1",
+     "simulated": true,
+     "rule": "offer:filter",
+     "filter": {
+      "after_time": "18:00",
+      "weekday": "thu"
+     },
+     "sites_offered": [
+      "RB-BRUNS"
+     ],
+     "link_offered": true,
+     "verified_directory": true,
+     "reason": "sites from the verified directory matching the effective constraints",
+     "template": "offer_sites_constrained",
+     "kind": "reply",
+     "response_time_snapshot": {
+      "sim_clock": "2026-09-15T10:00:00",
+      "overdue_threshold_days": 45,
+      "policy": {
+       "min_order_age_days": 45,
+       "reduced_followup_interval_days": 7,
+       "reduced_max_outreach_attempts": 2,
+       "max_outreach_attempts": 4,
+       "followup_interval_days": 3,
+       "reminder_lead_hours": 20,
+       "plan_verification_grace_days": 5,
+       "quiet_hours_start": "20:00",
+       "quiet_hours_end": "08:00",
+       "clinician_hours_start": "08:00",
+       "clinician_hours_end": "17:00",
+       "clinician_weekdays_only": true,
+       "stale_feed_hours": 48,
+       "max_model_calls_per_conversation": 20,
+       "max_tokens_per_conversation": 60000,
+       "max_outbound_per_conversation": 12,
+       "max_inbound_per_conversation": 40,
+       "max_inbound_chars": 1000,
+       "model_confidence_floor": 0.6,
+       "model_max_retries": 2,
+       "sms_max_attempts": 3,
+       "max_message_segments": 3
+      },
+      "directory_records": {
+       "sites": {
+        "RB-BRUNS": {
+         "id": "RB-BRUNS",
+         "name": "Riverbend Lab - Brunswick",
+         "town": "Brunswick",
+         "address": "22 Example Rd, Brunswick ME",
+         "hours": {
+          "mon": [
+           "07:00",
+           "19:00"
+          ],
+          "tue": [
+           "07:00",
+           "19:00"
+          ],
+          "wed": [
+           "07:00",
+           "19:00"
+          ],
+          "thu": [
+           "07:00",
+           "19:00"
+          ],
+          "fri": [
+           "07:00",
+           "19:00"
+          ],
+          "sat": [
+           "08:00",
+           "12:00"
+          ]
+         },
+         "visit_requirements": "Walk in or book online. Bring a photo ID and your insurance card if you have one.",
+         "verified_at": "2026-09-10T09:00:00",
+         "verified_by": "partner ops (synthetic)"
+        }
+       },
+       "instructions": {
+        "scheduling_link": {
+         "text": "https://example.invalid/riverbend/schedule",
+         "approved_at": "2026-09-10T09:00:00",
+         "approved_by": "partner ops (synthetic)"
+        }
+       }
+      },
+      "model_adapter": "mock",
+      "model_id": "mock-rules-v1",
+      "model_simulated": true,
+      "template_text": "{partner_name}: Open when you said you're free: {site_1}. {site_2}.{link_line} Which works for you?",
+      "rendered_body_sha1": "1e530f32198a",
+      "directory_content": {
+       "sites": {
+        "RB-BRUNS": "1552b3ec0e025dcc"
+       },
+       "instructions": {
+        "scheduling_link": "eba9c131f641b524"
+       }
+      },
+      "feed_stale": false,
+      "conversation_state": "engaged",
+      "epoch": 0,
+      "episode": 1
+     }
+    },
+    "created_at": "2026-09-15T10:00:00",
+    "sent_at": "2026-09-15T10:00:00"
+   },
+   {
+    "id": 23,
+    "direction": "inbound",
+    "kind": "reply",
+    "status": "processed",
+    "template_id": null,
+    "body": "Actually, Saturday morning would be easier.",
+    "decision": null,
+    "created_at": "2026-09-15T10:00:00",
+    "sent_at": null
+   },
+   {
+    "id": 24,
+    "direction": "outbound",
+    "kind": "reply",
+    "status": "sent",
+    "template_id": "offer_sites_constrained",
+    "body": "Riverbend Health: Open when you said you're free: Riverbend Lab - Brunswick, 22 Example Rd, Brunswick ME (Mon-Fri 7am-7pm, Sat 8am-12pm). Walk in or book online. Bring a photo ID and your insurance card if you have one. (only one location listed). You can also book online: https://example.invalid/riverbend/schedule. Which works for you?",
+    "decision": {
+     "intent": "scheduling_barrier",
+     "confidence": 0.8,
+     "constraints_from_message": {
+      "before_time": "12:00",
+      "weekday": "sat",
+      "weekend_ok": true
+     },
+     "preferences_active": {
+      "before_time": "12:00",
+      "weekday": "sat",
+      "weekend_ok": true
+     },
+     "effective_constraints": {
+      "before_time": "12:00",
+      "weekday": "sat",
+      "weekend_ok": true
+     },
+     "model": "mock-rules-v1",
+     "simulated": true,
+     "rule": "offer:filter",
+     "filter": {
+      "before_time": "12:00",
+      "weekday": "sat",
+      "weekend_ok": true
+     },
+     "sites_offered": [
+      "RB-BRUNS"
+     ],
+     "link_offered": true,
+     "verified_directory": true,
+     "reason": "sites from the verified directory matching the effective constraints",
+     "template": "offer_sites_constrained",
+     "kind": "reply",
+     "response_time_snapshot": {
+      "sim_clock": "2026-09-15T10:00:00",
+      "overdue_threshold_days": 45,
+      "policy": {
+       "min_order_age_days": 45,
+       "reduced_followup_interval_days": 7,
+       "reduced_max_outreach_attempts": 2,
+       "max_outreach_attempts": 4,
+       "followup_interval_days": 3,
+       "reminder_lead_hours": 20,
+       "plan_verification_grace_days": 5,
+       "quiet_hours_start": "20:00",
+       "quiet_hours_end": "08:00",
+       "clinician_hours_start": "08:00",
+       "clinician_hours_end": "17:00",
+       "clinician_weekdays_only": true,
+       "stale_feed_hours": 48,
+       "max_model_calls_per_conversation": 20,
+       "max_tokens_per_conversation": 60000,
+       "max_outbound_per_conversation": 12,
+       "max_inbound_per_conversation": 40,
+       "max_inbound_chars": 1000,
+       "model_confidence_floor": 0.6,
+       "model_max_retries": 2,
+       "sms_max_attempts": 3,
+       "max_message_segments": 3
+      },
+      "directory_records": {
+       "sites": {
+        "RB-BRUNS": {
+         "id": "RB-BRUNS",
+         "name": "Riverbend Lab - Brunswick",
+         "town": "Brunswick",
+         "address": "22 Example Rd, Brunswick ME",
+         "hours": {
+          "mon": [
+           "07:00",
+           "19:00"
+          ],
+          "tue": [
+           "07:00",
+           "19:00"
+          ],
+          "wed": [
+           "07:00",
+           "19:00"
+          ],
+          "thu": [
+           "07:00",
+           "19:00"
+          ],
+          "fri": [
+           "07:00",
+           "19:00"
+          ],
+          "sat": [
+           "08:00",
+           "12:00"
+          ]
+         },
+         "visit_requirements": "Walk in or book online. Bring a photo ID and your insurance card if you have one.",
+         "verified_at": "2026-09-10T09:00:00",
+         "verified_by": "partner ops (synthetic)"
+        }
+       },
+       "instructions": {
+        "scheduling_link": {
+         "text": "https://example.invalid/riverbend/schedule",
+         "approved_at": "2026-09-10T09:00:00",
+         "approved_by": "partner ops (synthetic)"
+        }
+       }
+      },
+      "model_adapter": "mock",
+      "model_id": "mock-rules-v1",
+      "model_simulated": true,
+      "template_text": "{partner_name}: Open when you said you're free: {site_1}. {site_2}.{link_line} Which works for you?",
+      "rendered_body_sha1": "1e530f32198a",
+      "directory_content": {
+       "sites": {
+        "RB-BRUNS": "1552b3ec0e025dcc"
+       },
+       "instructions": {
+        "scheduling_link": "eba9c131f641b524"
+       }
+      },
+      "feed_stale": false,
+      "conversation_state": "engaged",
+      "epoch": 0,
+      "episode": 1
+     }
+    },
+    "created_at": "2026-09-15T10:00:00",
+    "sent_at": "2026-09-15T10:00:00"
+   }
+  ],
+  "preferences_active": [
+   {
+    "key": "before_time",
+    "value": "12:00",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "message_id": 23,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "weekday",
+    "value": "sat",
+    "source": "model_interpretation",
+    "corrected": 1,
+    "message_id": 23,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "weekend_ok",
+    "value": "true",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "message_id": 23,
+    "created_at": "2026-09-15T10:00:00"
+   }
+  ],
+  "preferences_history": [
+   {
+    "key": "after_time",
+    "value": "18:00",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "superseded_by": -1,
+    "message_id": 21,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "weekday",
+    "value": "thu",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "superseded_by": 5,
+    "message_id": 21,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "evening_ok",
+    "value": "true",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "superseded_by": -1,
+    "message_id": 21,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "before_time",
+    "value": "12:00",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "superseded_by": null,
+    "message_id": 23,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "weekday",
+    "value": "sat",
+    "source": "model_interpretation",
+    "corrected": 1,
+    "superseded_by": null,
+    "message_id": 23,
+    "created_at": "2026-09-15T10:00:00"
+   },
+   {
+    "key": "weekend_ok",
+    "value": "true",
+    "source": "model_interpretation",
+    "corrected": 0,
+    "superseded_by": null,
+    "message_id": 23,
+    "created_at": "2026-09-15T10:00:00"
+   }
+  ],
+  "orders": [
+   {
+    "id": 2,
+    "source_order_id": "ORD-1002",
+    "state": "outreach_active",
+    "ordered_at": "2026-07-18T09:00:00",
+    "intended_due_at": null,
+    "verified_at": null,
+    "claim_location": null,
+    "claim_in_network": null,
+    "state_updated_at": "2026-09-15T10:00:00",
+    "lines": "Lipid panel:outstanding"
+   }
+  ],
+  "escalations": [],
+  "partner_feed": {
+   "latest_generated_at": "2026-09-15T10:00:00",
+   "stale": false
+  },
+  "sim_clock": "2026-09-15T10:00:00",
+  "events_for_conversation": [
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "conversation_created",
+    "detail": "{\"first_outreach_at\": \"2026-09-15T10:00:00\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "outbound_queued",
+    "detail": "{\"dedupe_key\": \"conv2:ep1:outreach_initial:attempt1\", \"force\": false, \"kind\": \"scheduled\", \"segments\": 2, \"status\": \"queued\", \"template\": \"outreach_initial\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "conversation_state",
+    "detail": "{\"from\": \"new\", \"to\": \"outreach_sent\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "outbound_sent",
+    "detail": "{\"kind\": \"scheduled\", \"message_id\": 2, \"note\": \"provider accepted; delivery not modeled\", \"provider\": \"simulated\", \"segments\": 2, \"simulated\": true, \"template\": \"outreach_initial\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "patient",
+    "kind": "inbound",
+    "detail": "{\"chars\": 45, \"flags\": [], \"message_id\": 21}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "model:mock-rules-v1",
+    "kind": "model_call",
+    "detail": "{\"confidence\": 0.8, \"error\": null, \"intent\": \"scheduling_barrier\", \"outcome\": \"ok\", \"simulated\": true, \"usage_known\": true}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "conversation_state",
+    "detail": "{\"from\": \"outreach_sent\", \"to\": \"engaged\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "outbound_queued",
+    "detail": "{\"dedupe_key\": \"conv2:offer_c:msg21\", \"force\": false, \"kind\": \"reply\", \"segments\": 3, \"status\": \"queued\", \"template\": \"offer_sites_constrained\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "sites_offered",
+    "detail": "{\"dedupe_key\": \"conv2:offer_c:msg21\", \"episode\": 1, \"link_offered\": true, \"site_ids\": [\"RB-BRUNS\"], \"verified_directory\": true}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "outbound_sent",
+    "detail": "{\"kind\": \"reply\", \"message_id\": 22, \"note\": \"provider accepted; delivery not modeled\", \"provider\": \"simulated\", \"segments\": 3, \"simulated\": true, \"template\": \"offer_sites_constrained\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "patient",
+    "kind": "inbound",
+    "detail": "{\"chars\": 44, \"flags\": [], \"message_id\": 23}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "model:mock-rules-v1",
+    "kind": "model_call",
+    "detail": "{\"confidence\": 0.8, \"error\": null, \"intent\": \"scheduling_barrier\", \"outcome\": \"ok\", \"simulated\": true, \"usage_known\": true}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "outbound_queued",
+    "detail": "{\"dedupe_key\": \"conv2:offer_c:msg23\", \"force\": false, \"kind\": \"reply\", \"segments\": 3, \"status\": \"queued\", \"template\": \"offer_sites_constrained\"}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "sites_offered",
+    "detail": "{\"dedupe_key\": \"conv2:offer_c:msg23\", \"episode\": 1, \"link_offered\": true, \"site_ids\": [\"RB-BRUNS\"], \"verified_directory\": true}"
+   },
+   {
+    "at": "2026-09-15T10:00:00",
+    "actor": "system",
+    "kind": "outbound_sent",
+    "detail": "{\"kind\": \"reply\", \"message_id\": 24, \"note\": \"provider accepted; delivery not modeled\", \"provider\": \"simulated\", \"segments\": 3, \"simulated\": true, \"template\": \"offer_sites_constrained\"}"
+   }
+  ]
+ }
+}

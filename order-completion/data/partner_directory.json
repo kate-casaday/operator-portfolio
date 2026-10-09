@@ -1,0 +1,379 @@
+{
+ "partner_id": "RIVERBEND",
+ "partner_name": "Riverbend Health",
+ "_note": "SYNTHETIC partner. Every site, phone, link and instruction here is invented for the demo. In production this file is the partner-approved directory and nothing else may be offered to a patient. Validity (verified_at / approved_at + signer) is checked by the engine at the moment of use.",
+ "clinician_contact": {
+  "name": "the Riverbend nurse line",
+  "phone": "207-555-0100",
+  "role": "designated partner clinician queue (simulated in this prototype)",
+  "response_hours_business": 4,
+  "accepts_queue": true,
+  "_accepts_queue_note": "V4-3: the partner's explicit opt-in to StealthCo's clinician queue (owner + SLA). Without it, and without an approved portal link, clinical questions get the clinic phone and a configuration item - never a queue the partner did not agree to."
+ },
+ "technical_contact": {
+  "name": "Riverbend integration desk",
+  "email": "integration@example.invalid",
+  "channel": "email",
+  "role": "the partner's technical contact for the export job (SYNTHETIC)",
+  "_note": "Sept 23, 2026: feed problems are reported here with a specific message and what we already did; this contact never has to watch the feed for us. Notification is simulated in this prototype."
+ },
+ "approved_instructions": {
+  "transport": {
+   "text": "Riverbend has a free ride program for lab visits; call 207-555-0199 to book one.",
+   "approved_at": "2026-09-10T09:00:00",
+   "approved_by": "partner ops (synthetic)"
+  },
+  "scheduling_link": {
+   "text": "https://example.invalid/riverbend/schedule",
+   "approved_at": "2026-09-10T09:00:00",
+   "approved_by": "partner ops (synthetic)"
+  }
+ },
+ "sites": [
+  {
+   "id": "RB-BATH",
+   "name": "Riverbend Lab - Bath",
+   "town": "Bath",
+   "address": "10 Synthetic St, Bath ME",
+   "hours": {
+    "mon": [
+     "07:00",
+     "16:00"
+    ],
+    "tue": [
+     "07:00",
+     "16:00"
+    ],
+    "wed": [
+     "07:00",
+     "16:00"
+    ],
+    "thu": [
+     "07:00",
+     "16:00"
+    ],
+    "fri": [
+     "07:00",
+     "16:00"
+    ]
+   },
+   "visit_requirements": "Walk in, no appointment. Bring a photo ID.",
+   "verified_at": "2026-09-10T09:00:00",
+   "verified_by": "partner ops (synthetic)",
+   "services": [
+    "blood_draw",
+    "urine_collection"
+   ],
+   "lat": 43.9109,
+   "lon": -69.8206,
+   "scheduling": {
+    "adapter": "simulated",
+    "slot_minutes": 60,
+    "lead_time_hours": 2,
+    "_note": "SIMULATED booking; a partner scheduling integration is a partner decision"
+   }
+  },
+  {
+   "id": "RB-BRUNS",
+   "name": "Riverbend Lab - Brunswick",
+   "town": "Brunswick",
+   "address": "22 Example Rd, Brunswick ME",
+   "hours": {
+    "mon": [
+     "07:00",
+     "19:00"
+    ],
+    "tue": [
+     "07:00",
+     "19:00"
+    ],
+    "wed": [
+     "07:00",
+     "19:00"
+    ],
+    "thu": [
+     "07:00",
+     "19:00"
+    ],
+    "fri": [
+     "07:00",
+     "19:00"
+    ],
+    "sat": [
+     "08:00",
+     "12:00"
+    ]
+   },
+   "visit_requirements": "Walk in or book online. Bring a photo ID and your insurance card if you have one.",
+   "verified_at": "2026-09-10T09:00:00",
+   "verified_by": "partner ops (synthetic)",
+   "services": [
+    "blood_draw",
+    "urine_collection",
+    "drug_screen_dot",
+    "drug_screen_non_dot",
+    "glucose_tolerance",
+    "pediatric_draw",
+    "processing_onsite"
+   ],
+   "lat": 43.914,
+   "lon": -69.9653,
+   "service_hours": {
+    "glucose_tolerance": {
+     "latest_start": "10:00",
+     "note": "2-hour test; must begin by 10:00"
+    }
+   },
+   "scheduling": {
+    "adapter": "simulated",
+    "slot_minutes": 60,
+    "lead_time_hours": 2,
+    "_note": "SIMULATED booking; a partner scheduling integration is a partner decision"
+   }
+  },
+  {
+   "id": "RB-TOPS",
+   "name": "Riverbend Lab - Topsham",
+   "town": "Topsham",
+   "address": "5 Placeholder Ave, Topsham ME",
+   "hours": {
+    "mon": [
+     "07:00",
+     "15:00"
+    ],
+    "tue": [
+     "07:00",
+     "15:00"
+    ],
+    "wed": [
+     "07:00",
+     "15:00"
+    ]
+   },
+   "visit_requirements": "Walk in.",
+   "verified_at": "2026-01-05T09:00:00",
+   "verified_by": "STALE - verification older than 90 days; the engine must refuse to offer this site",
+   "services": [
+    "blood_draw",
+    "urine_collection"
+   ],
+   "lat": 43.9276,
+   "lon": -69.9759
+  },
+  {
+   "id": "RB-WISC",
+   "name": "Riverbend Draw Station - Wiscasset",
+   "town": "Wiscasset",
+   "address": "3 Sample Ln, Wiscasset ME",
+   "hours": {
+    "mon": [
+     "08:00",
+     "12:00"
+    ],
+    "wed": [
+     "08:00",
+     "12:00"
+    ],
+    "fri": [
+     "08:00",
+     "12:00"
+    ]
+   },
+   "visit_requirements": "Walk in. Collection only; specimens are couriered to Brunswick.",
+   "services": [
+    "blood_draw"
+   ],
+   "lat": 44.0029,
+   "lon": -69.6656,
+   "verified_at": "2026-09-10T09:00:00",
+   "verified_by": "partner ops (synthetic)"
+  }
+ ],
+ "towns": {
+  "Bath": {
+   "lat": 43.9109,
+   "lon": -69.8206
+  },
+  "Brunswick": {
+   "lat": 43.914,
+   "lon": -69.9653
+  },
+  "Topsham": {
+   "lat": 43.9276,
+   "lon": -69.9759
+  },
+  "Wiscasset": {
+   "lat": 44.0029,
+   "lon": -69.6656
+  },
+  "Freeport": {
+   "lat": 43.857,
+   "lon": -70.1031
+  },
+  "Woolwich": {
+   "lat": 43.9184,
+   "lon": -69.797
+  },
+  "Phippsburg": {
+   "lat": 43.8209,
+   "lon": -69.8145
+  },
+  "West Bath": {
+   "lat": 43.8967,
+   "lon": -69.8602
+  },
+  "Harpswell": {
+   "lat": 43.8018,
+   "lon": -69.9856
+  },
+  "Bowdoinham": {
+   "lat": 44.0101,
+   "lon": -69.8942
+  },
+  "Richmond": {
+   "lat": 44.0876,
+   "lon": -69.799
+  },
+  "Damariscotta": {
+   "lat": 44.0329,
+   "lon": -69.5187
+  }
+ },
+ "_towns_note": "Approximate town centroids for the Operations map (public geography, not patient data).",
+ "mobile_routes": [
+  {
+   "id": "MR-1",
+   "name": "Riverbend mobile draw",
+   "services": [
+    "blood_draw",
+    "urine_collection"
+   ],
+   "stops": [
+    {
+     "id": "MR-1-PHIP",
+     "town": "Phippsburg",
+     "weekday": "thu",
+     "window": [
+      "09:00",
+      "12:00"
+     ],
+     "address": "Phippsburg Town Hall lot, 1040 Main Rd, Phippsburg ME"
+    },
+    {
+     "id": "MR-1-HARP",
+     "town": "Harpswell",
+     "weekday": "tue",
+     "window": [
+      "13:00",
+      "16:00"
+     ],
+     "address": "Harpswell Community Center lot, 1 Sample Way, Harpswell ME"
+    }
+   ],
+   "verified_at": "2026-09-10T09:00:00",
+   "verified_by": "partner ops (synthetic)"
+  }
+ ],
+ "_mobile_routes_note": "SYNTHETIC mobile phlebotomy route (third map layer). A stop may be offered by the resolver only when it is verified, offers the order's services, and is in or near the patient's town.",
+ "patient_portal": {
+  "name": "Riverbend MyChart",
+  "link": "https://example.invalid/riverbend/mychart/messages",
+  "phone_note": "synthetic",
+  "approved_at": "2026-09-16T09:00:00",
+  "approved_by": "partner ops (synthetic)",
+  "_note": "SYNTHETIC. In production: the partner's real portal messaging link (the page where a patient writes to their provider) and, for portal_relay mode, the vendor's patient-message write endpoint."
+ },
+ "urgent_care": [
+  {
+   "id": "UC-BRUNS",
+   "name": "Riverbend Urgent Care - Brunswick",
+   "address": "40 Example Rd, Brunswick ME",
+   "phone": "207-555-0140",
+   "hours_text": "Daily 8am-8pm",
+   "lat": 43.916,
+   "lon": -69.96,
+   "verified_at": "2026-09-10T09:00:00",
+   "verified_by": "partner ops (synthetic)"
+  },
+  {
+   "id": "UC-DAMAR",
+   "name": "Riverbend Urgent Care - Damariscotta",
+   "address": "7 Sample St, Damariscotta ME",
+   "phone": "207-555-0141",
+   "hours_text": "Daily 8am-6pm",
+   "lat": 44.03,
+   "lon": -69.52,
+   "verified_at": "2026-09-10T09:00:00",
+   "verified_by": "partner ops (synthetic)"
+  }
+ ],
+ "_urgent_care_note": "SYNTHETIC. Partner-verified urgent care sites named in the emergency safety text, chosen by distance from the patient's location. Never model-written.",
+ "escalation_routes": {
+  "approved": false,
+  "approved_by": null,
+  "approved_at": null,
+  "_note": "DRAFT routes; not partner-approved. Shown on the referral dashboard as 'pending partner approval'.",
+  "routes": {
+   "clinical_question": {
+    "team": "ordering_clinician",
+    "response_hours_business": 8,
+    "channel": "portal_link"
+   },
+   "staff_request": {
+    "team": "nurse_line",
+    "response_hours_business": 4,
+    "channel": "portal_link"
+   },
+   "emergency": {
+    "team": "nurse_line",
+    "response_hours_business": 1,
+    "channel": "clinician_queue"
+   },
+   "plan_change_reported": {
+    "team": "ordering_clinician",
+    "response_hours_business": 16,
+    "channel": "clinician_queue"
+   }
+  }
+ },
+ "urgency_policy": {
+  "status": "pending_clinical_approval",
+  "levels": {
+   "emergency": {
+    "response_hours_business": 1,
+    "description": "emergency wording; 911 guidance already sent"
+   },
+   "priority": {
+    "response_hours_business": 4,
+    "description": "medication or symptom question"
+   },
+   "routine": {
+    "response_hours_business": 8,
+    "description": "is it needed / results / general"
+   }
+  }
+ },
+ "escalation_criteria": {
+  "status": "pending_clinical_approval",
+  "_note": "Which patient texts must reach a clinician, and how fast, is a clinical policy the partner's designated reviewer approves before any real patient. The prototype's criteria are code (EMERGENCY_RE, clinical intents, topics) and are shown here for review.",
+  "criteria": [
+   "emergency wording (code list) \u2192 911 text + emergency referral",
+   "clinical question / staff request \u2192 portal link (default) or opted-in queue",
+   "medication or symptom topic \u2192 priority",
+   "preparation question \u2192 approved text, no referral",
+   "documented-rationale question \u2192 quoted note, no referral"
+  ]
+ },
+ "capabilities": {
+  "record_read": true,
+  "messaging": true,
+  "portal_relay": true,
+  "booking": true,
+  "clinician_queue": {
+   "accepted": true,
+   "owner": "the Riverbend nurse line",
+   "response_hours_business": 4
+  },
+  "_note": "V5-1: partner-granted operational capabilities. The engine DENIES messaging, booking, relay, queue and note import unless granted here; a missing block means nothing is granted. Synthetic partner grants all of them so the demo runs; tests revoke each."
+ }
+}

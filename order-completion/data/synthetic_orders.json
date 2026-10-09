@@ -1,0 +1,916 @@
+{
+ "partner_id": "RIVERBEND",
+ "generated_at": "2026-09-15T06:00:00",
+ "synthetic": true,
+ "_note": "SYNTHETIC. Names, phones (555 exchange), towns and orders are invented. Sim clock starts 2026-09-15T10:00.  Version 3: ordering_provider varies, visit_at added (absent for P-03, P-09, P-14 on purpose), P-19 needs a timed glucose tolerance test (Brunswick only, start by 10am), P-14 a DOT drug screen (Brunswick only), P-13 a urine culture.  Version 4: P-21 (Phippsburg, transport barrier \u2192 mobile stop), P-22 (Harpswell, Sundays only \u2192 alternative), P-23 (Bath, traveling \u2192 zip / out of area).  Version 5: care_team per order (P-03 ambiguous ownership; P-04 no PCP); notes in synthetic_notes.json.  P-24 (Bath, CMP): the v5 plan-change scenario.  P-25 (Brunswick, TSH): the v5 relay-overdue scenario.",
+ "orders": [
+  {
+   "source_order_id": "ORD-1001",
+   "patient": {
+    "source_patient_id": "P-01",
+    "display_name": "Alice Winslow",
+    "phone": "+12075550101",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-20T09:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-07-20",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1002",
+   "patient": {
+    "source_patient_id": "P-02",
+    "display_name": "Ben Ortiz",
+    "phone": "+12075550102",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-18T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "LIPID",
+     "test_name": "Lipid panel"
+    }
+   ],
+   "visit_at": "2026-07-18",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1003",
+   "patient": {
+    "source_patient_id": "P-03",
+    "display_name": "Carla Dube",
+    "phone": "+12075550103",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-25T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c"
+    }
+   ],
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    },
+    "episode_team": {
+     "name": "Riverbend Dermatology",
+     "role": "episode_team"
+    },
+    "ambiguous": "two teams (PCP and dermatology) have touched this order; ownership not recorded"
+   }
+  },
+  {
+   "source_order_id": "ORD-1004",
+   "patient": {
+    "source_patient_id": "P-04",
+    "display_name": "Dan Pelletier",
+    "phone": "+12075550104",
+    "consent_sms": true,
+    "home_town": "Topsham"
+   },
+   "ordered_at": "2026-07-10T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "TSH",
+     "test_name": "Thyroid (TSH)"
+    }
+   ],
+   "visit_at": "2026-07-10",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician"
+    },
+    "pcp": null
+   }
+  },
+  {
+   "source_order_id": "ORD-1005",
+   "patient": {
+    "source_patient_id": "P-05",
+    "display_name": "Eve Marsh",
+    "phone": "+12075550105",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-22T09:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CMP",
+     "test_name": "Metabolic panel"
+    }
+   ],
+   "visit_at": "2026-07-22",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1006",
+   "patient": {
+    "source_patient_id": "P-06",
+    "display_name": "Frank Nadeau",
+    "phone": "+12075550106",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-15T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-07-15",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1007",
+   "patient": {
+    "source_patient_id": "P-07",
+    "display_name": "Grace Ivy",
+    "phone": "+12075550107",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-28T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "LIPID",
+     "test_name": "Lipid panel"
+    }
+   ],
+   "visit_at": "2026-07-28",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1008",
+   "patient": {
+    "source_patient_id": "P-08",
+    "display_name": "Hal Brewer",
+    "phone": "+12075550108",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-12T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c"
+    }
+   ],
+   "visit_at": "2026-07-12",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Okafor",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1009",
+   "patient": {
+    "source_patient_id": "P-09",
+    "display_name": "Ida Coombs",
+    "phone": "+12075550109",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CMP",
+     "test_name": "Metabolic panel"
+    }
+   ],
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1010",
+   "patient": {
+    "source_patient_id": "P-10",
+    "display_name": "Jo Tardif",
+    "phone": "+12075550110",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-21T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "TSH",
+     "test_name": "Thyroid (TSH)"
+    }
+   ],
+   "visit_at": "2026-07-21",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1011",
+   "patient": {
+    "source_patient_id": "P-11",
+    "display_name": "Kim Lachance",
+    "phone": "+12075550111",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-14T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    },
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c"
+    }
+   ],
+   "visit_at": "2026-07-14",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1012",
+   "patient": {
+    "source_patient_id": "P-12",
+    "display_name": "Lou Vachon",
+    "phone": "+12075550112",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-16T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "LIPID",
+     "test_name": "Lipid panel"
+    }
+   ],
+   "visit_at": "2026-07-16",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp",
+     "contact_route": "portal"
+    },
+    "episode_team": {
+     "name": "Riverbend Cardiology",
+     "role": "episode_team",
+     "contact_route": "portal"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1013",
+   "patient": {
+    "source_patient_id": "P-13",
+    "display_name": "Mo Rand",
+    "phone": "+12075550113",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-17T09:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "UCX",
+     "test_name": "Urine culture"
+    }
+   ],
+   "visit_at": "2026-07-17",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1014",
+   "patient": {
+    "source_patient_id": "P-14",
+    "display_name": "Nia Perry",
+    "phone": "+12075550114",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-13T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "DOT5",
+     "test_name": "DOT 5-panel drug screen"
+    }
+   ],
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1020",
+   "patient": {
+    "source_patient_id": "P-20",
+    "display_name": "Vic Wyman",
+    "phone": "+12075550120",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-07-19",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1019",
+   "patient": {
+    "source_patient_id": "P-19",
+    "display_name": "Uma Vail",
+    "phone": "+12075550119",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "GTT2",
+     "test_name": "2-hour glucose tolerance"
+    }
+   ],
+   "visit_at": "2026-07-19",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Okafor",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1018",
+   "patient": {
+    "source_patient_id": "P-18",
+    "display_name": "Sid Thibodeau",
+    "phone": "+12075550118",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CMP",
+     "test_name": "Metabolic panel"
+    }
+   ],
+   "visit_at": "2026-07-19",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1017",
+   "patient": {
+    "source_patient_id": "P-17",
+    "display_name": "Rae Sutton",
+    "phone": "+12075550117",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c"
+    }
+   ],
+   "visit_at": "2026-07-19",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1016",
+   "patient": {
+    "source_patient_id": "P-16",
+    "display_name": "Pat Quimby",
+    "phone": "+12075550116",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "LIPID",
+     "test_name": "Lipid panel"
+    }
+   ],
+   "visit_at": "2026-07-19",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1015",
+   "patient": {
+    "source_patient_id": "P-15",
+    "display_name": "Olive Pratt",
+    "phone": "+12075550115",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-19T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-07-19",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Okafor",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1093",
+   "patient": {
+    "source_patient_id": "P-93",
+    "display_name": "Tess Future",
+    "phone": "+12075550193",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-06-01T09:00:00",
+   "intended_due_at": "2026-12-01T00:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c"
+    }
+   ],
+   "visit_at": "2026-06-01",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1090",
+   "patient": {
+    "source_patient_id": "P-90",
+    "display_name": "Quinn Underhill",
+    "phone": "+12075550190",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-08-30T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-08-30",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1091",
+   "patient": {
+    "source_patient_id": "P-91",
+    "display_name": "Rosa Vega",
+    "phone": "+12075550191",
+    "consent_sms": false,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-01T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-07-01",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1092",
+   "patient": {
+    "source_patient_id": "P-92",
+    "display_name": "Sam Whitcomb",
+    "phone": "+12075550192",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-01T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "stat",
+   "lines": [
+    {
+     "test_code": "TROP",
+     "test_name": "Troponin"
+    }
+   ],
+   "visit_at": "2026-07-01",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Okafor",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1021",
+   "patient": {
+    "source_patient_id": "P-21",
+    "display_name": "Wes Alder",
+    "phone": "+12075550121",
+    "consent_sms": true,
+    "home_town": "Phippsburg"
+   },
+   "ordered_at": "2026-07-22T09:00:00",
+   "ordering_provider": "Dr. Casaday",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CBC",
+     "test_name": "Complete blood count"
+    }
+   ],
+   "visit_at": "2026-07-22",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Casaday",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Casaday",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1022",
+   "patient": {
+    "source_patient_id": "P-22",
+    "display_name": "Xia Bell",
+    "phone": "+12075550122",
+    "consent_sms": true,
+    "home_town": "Harpswell"
+   },
+   "ordered_at": "2026-07-22T09:00:00",
+   "ordering_provider": "Dr. Patel",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "A1C",
+     "test_name": "Hemoglobin A1c"
+    }
+   ],
+   "visit_at": "2026-07-22",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Patel",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Patel",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1023",
+   "patient": {
+    "source_patient_id": "P-23",
+    "display_name": "Yara Cole",
+    "phone": "+12075550123",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-22T09:00:00",
+   "ordering_provider": "Dr. Nguyen",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "LIPID",
+     "test_name": "Lipid panel"
+    }
+   ],
+   "visit_at": "2026-07-22",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Nguyen",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1024",
+   "patient": {
+    "source_patient_id": "P-24",
+    "display_name": "Zed Oakes",
+    "phone": "+12075550124",
+    "consent_sms": true,
+    "home_town": "Bath"
+   },
+   "ordered_at": "2026-07-25T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "CMP",
+     "test_name": "Comprehensive metabolic"
+    }
+   ],
+   "visit_at": "2026-07-25",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Nguyen",
+     "role": "pcp"
+    }
+   }
+  },
+  {
+   "source_order_id": "ORD-1025",
+   "patient": {
+    "source_patient_id": "P-25",
+    "display_name": "Ada Finch",
+    "phone": "+12075550125",
+    "consent_sms": true,
+    "home_town": "Brunswick"
+   },
+   "ordered_at": "2026-07-26T09:00:00",
+   "ordering_provider": "Dr. Okafor",
+   "priority": "routine",
+   "lines": [
+    {
+     "test_code": "TSH",
+     "test_name": "Thyroid (TSH)"
+    }
+   ],
+   "visit_at": "2026-07-26",
+   "care_team": {
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "contact_route": "portal"
+    },
+    "pcp": {
+     "name": "Dr. Okafor",
+     "role": "pcp"
+    }
+   }
+  }
+ ]
+}

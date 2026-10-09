@@ -1,0 +1,60 @@
+{
+ "partner_id": "RIVERBEND",
+ "generated_at": "2026-09-20T06:00:00",
+ "synthetic": true,
+ "capabilities": {
+  "record_read": true,
+  "messaging": true,
+  "booking": true
+ },
+ "order_events": [
+  {
+   "event_id": "EV-9001",
+   "source_order_id": "ORD-1024",
+   "kind": "replaced",
+   "at": "2026-09-19T15:30:00",
+   "actor": "order system",
+   "replacement": {
+    "source_order_id": "ORD-1024B",
+    "source_patient_id": "P-24",
+    "ordered_at": "2026-09-19T15:30:00",
+    "priority": "routine",
+    "state": "open",
+    "ordering_clinician": {
+     "name": "Dr. Okafor",
+     "role": "ordering_clinician",
+     "team_id": "ENDO-2",
+     "contact_route": "portal"
+    },
+    "lines": [
+     {
+      "test_code": "A1C",
+      "test_name": "Hemoglobin A1c"
+     }
+    ]
+   }
+  },
+  {
+   "event_id": "EV-9002",
+   "source_order_id": "ORD-1024B",
+   "kind": "attended",
+   "at": "2026-09-22T08:40:00",
+   "actor": "lab system",
+   "attendance": {
+    "site_id": "RB-BRUNS",
+    "arrived_at": "2026-09-22T08:40:00",
+    "confirmation_id": "SIMBK-000123"
+   }
+  },
+  {
+   "event_id": "EV-9003",
+   "source_order_id": "ORD-1024B",
+   "kind": "result_finalized",
+   "at": "2026-09-23T11:05:00",
+   "actor": "lab system",
+   "lines": [
+    "A1C"
+   ]
+  }
+ ]
+}

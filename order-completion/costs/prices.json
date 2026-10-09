@@ -1,0 +1,71 @@
+{
+  "_readme": "Every price carries a source and the date it was read. 'assumed' entries are StealthCo assumptions, not vendor prices. Re-run cost_calculator.py after editing.",
+  "checked_on": "2026-09-15",
+  "prompt_caching": {"min_cacheable_prefix_tokens": {"claude-opus-5": 512, "claude-sonnet-5": 1024, "claude-haiku-4-5": 4096},
+                     "source": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching", "read": "2026-09-15",
+                     "note": "cache read = 0.1x input, 5-min write = 1.25x input.  The prototype's system prefix (~350 tokens) is below all three minimums."},
+  "models": {
+    "claude-opus-5":   {"input": 5.00, "output": 25.00, "cache_read": 0.50, "cache_write_5m": 6.25, "batch_discount": 0.5,
+                        "source": "https://platform.claude.com/docs/en/about-claude/pricing", "read": "2026-09-15", "usd_per": "1M tokens"},
+    "claude-sonnet-5": {"input": 2.00, "output": 10.00, "cache_read": 0.20, "cache_write_5m": 2.50, "batch_discount": 0.5,
+                        "source": "https://platform.claude.com/docs/en/about-claude/pricing", "read": "2026-09-15", "usd_per": "1M tokens",
+                        "note": "$2/$10 introductory price made permanent per the pricing page note"},
+    "claude-haiku-4-5": {"input": 1.00, "output": 5.00, "cache_read": 0.10, "cache_write_5m": 1.25, "batch_discount": 0.5,
+                        "source": "https://platform.claude.com/docs/en/about-claude/pricing", "read": "2026-09-15", "usd_per": "1M tokens",
+                        "note": "retirement not sooner than 2026-10-15 per models overview; plan for a successor"},
+    "deepseek-flash-api": {"input": 0.30, "output": 1.20, "cache_read": 0.006, "off_peak_multiplier": 0.5,
+                        "source": "https://api-docs.deepseek.com/quick_start/pricing", "read": "2026-09-15", "usd_per": "1M tokens",
+                        "note": "DeepSeek-V4.1-Flash hosted API, peak rates. REFERENCE ONLY: no BAA, data terms and jurisdiction unsuitable for PHI; not a candidate."}
+  },
+  "gpu_hosting": {
+    "runpod_h200_secure": {"usd_per_gpu_hour": 4.59, "vram_gb": 141, "source": "https://www.runpod.io/pricing", "read": "2026-09-15", "page_dated": "2026-09-13"},
+    "runpod_h100_sxm_secure": {"usd_per_gpu_hour": 3.49, "vram_gb": 80, "source": "https://www.runpod.io/pricing", "read": "2026-09-15", "page_dated": "2026-09-13"},
+    "lambda_h100_sxm_1x": {"usd_per_gpu_hour": 4.29, "vram_gb": 80, "source": "https://lambda.ai/service/gpu-cloud", "read": "2026-09-15"},
+    "lambda_b200_1x": {"usd_per_gpu_hour": 6.99, "vram_gb": 180, "source": "https://lambda.ai/service/gpu-cloud", "read": "2026-09-15"},
+    "_unknown": "Whether RunPod or Lambda will sign a HIPAA BAA for these SKUs was not checked. Hyperscaler GPU rates were not read; none is asserted."
+  },
+  "open_weight_candidate": {
+    "name": "DeepSeek-V4-Flash",
+    "total_params_b": 284, "active_params_b": 13, "license": "MIT", "precision": "FP4 experts + FP8 other (mixed)",
+    "source": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash", "read": "2026-09-15",
+    "weight_memory_gb_estimate": 170,
+    "weight_memory_note": "DERIVED, not measured: 284B params at a blended ~0.6 bytes/param (FP4 experts, FP8 rest). Vendor does not state GPU requirements. KV cache and runtime overhead extra.",
+    "min_config_options": [{"gpus": 2, "sku": "runpod_h200_secure"}, {"gpus": 4, "sku": "runpod_h100_sxm_secure"}],
+    "throughput_note": "No throughput benchmark is asserted. At the volumes below, utilization is bounded by patient traffic, not GPU capacity. 24/7 service is a modeling CHOICE (patients text at any hour; a queue-and-batch design was not modeled), not a requirement inferred from the model.",
+    "why_not_v4_pro": "DeepSeek-V4-Pro is 1.6T params; multi-node serving, out of scope for a pre-seed team."
+  },
+  "sms": {
+    "twilio_us_outbound_per_segment": 0.0083, "twilio_us_inbound_per_segment": 0.0083,
+    "carrier_fee_per_outbound_segment_assumed": 0.0040,
+    "carrier_fee_note": "Twilio lists AT&T $0.0035 and T-Mobile $0.0045 per long-code outbound SMS; $0.0040 is a blended assumption. Verizon and inbound carrier fees not read.",
+    "long_code_number_per_month": 1.15,
+    "a2p_10dlc_registration": null,
+    "a2p_10dlc_note": "UNKNOWN: Twilio's pricing page says A2P 10DLC has onboarding fees but does not list them. Brand + campaign registration and monthly campaign fees must be confirmed before launch.",
+    "failed_message_fee": null,
+    "failed_message_note": "Twilio's page lists a failed-message fee and inbound carrier fees; not read into this model (unknown).",
+    "source": "https://www.twilio.com/en-us/sms/pricing/us", "read": "2026-09-15"
+  },
+  "hosting_app": {
+    "small_vm_and_managed_db_per_month": 120,
+    "note": "ASSUMED. One small VM + managed Postgres + backups + monitoring for the workflow service. No vendor quote fetched. A BAA-capable host (AWS/GCP/Azure with signed BAA) is required for PHI; expect the low end of $100-300/mo at this scale."
+  },
+  "human": {
+    "loaded_hourly_rate_nonfounder": 35.0,
+    "note": "ASSUMED contractor rate for nonclinical operations support if Kate's time is replaced. Founder time is reported in hours and NOT priced into per-patient cost; founder compensation is listed separately."
+  },
+  "founder_comp": {
+    "founder_a_per_month": 15000, "founder_b_per_month": 15000, "burden_pct": 0.20,
+    "source": "CLAUDE.md / internal 18-month pro forma (not included)", "note": "Recorded provision; not an operating cost of the software."
+  },
+  "development_one_time": {
+    "engineer_month_loaded": 20000,
+    "source": "internal 18-month pro forma (not included)",
+    "items": {
+      "partner_feed_adapter_and_matching": {"engineer_months": 1.5, "note": "SFTP/FHIR export ingestion, identifier mapping, reconciliation; depends entirely on the partner's interface"},
+      "messaging_go_live": {"engineer_months": 0.5, "note": "10DLC registration, Twilio webhook hardening, delivery receipts, opt-out audit"},
+      "live_model_evaluation": {"engineer_months": 1.0, "note": "replace mock with live adapter, build labeled eval set from partner-approved samples, measure intent accuracy and escalation precision"},
+      "security_review_allowance": {"usd": 40500, "note": "pro forma Turn 11 allowance (Sara Lazarus line); not a quote"},
+      "legal_baa_privacy": {"usd": 15000, "note": "ASSUMED allowance: BAA, partner contact-process approval, consent language review"}
+    }
+  }
+}

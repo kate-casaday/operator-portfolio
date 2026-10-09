@@ -1,0 +1,50 @@
+{
+ "partner_id": "RIVERBEND",
+ "generated_at": "2026-09-16T06:00:00",
+ "synthetic": true,
+ "capabilities": {},
+ "escalation_routes": {
+  "approved": false,
+  "approved_by": null,
+  "approved_at": null,
+  "routes": {
+   "clinical_question": {
+    "team": "ordering_clinician",
+    "response_hours_business": 8,
+    "channel": "portal_link"
+   },
+   "staff_request": {
+    "team": "nurse_line",
+    "response_hours_business": 4,
+    "channel": "portal_link"
+   },
+   "emergency": {
+    "team": "nurse_line",
+    "response_hours_business": 1,
+    "channel": "clinician_queue"
+   },
+   "plan_change_reported": {
+    "team": "ordering_clinician",
+    "response_hours_business": 16,
+    "channel": "clinician_queue"
+   }
+  }
+ },
+ "urgency_policy": {
+  "status": "pending_clinical_approval",
+  "levels": {
+   "emergency": {
+    "response_hours_business": 1,
+    "description": "emergency wording; 911 guidance already sent"
+   },
+   "priority": {
+    "response_hours_business": 4,
+    "description": "medication / symptom question"
+   },
+   "routine": {
+    "response_hours_business": 8,
+    "description": "is it still needed / results / general"
+   }
+  }
+ }
+}

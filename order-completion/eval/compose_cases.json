@@ -1,0 +1,222 @@
+{
+ "_note": "Wording evaluation cases for the composer.  Each case replays a synthetic thread on a synthetic patient, lets the composer write the reply the application decided on, and checks the text with the fact check plus case-specific expectations.  Passing the fact check is required for every case; the extra checks encode Kate's voice principles.",
+ "cases": [
+  {
+   "id": "cw-01",
+   "title": "Feedback #1: change to Saturday morning is acknowledged, relevant hours only, one question",
+   "patient": 2,
+   "turns": [
+    "I work until 6 and can only go on Thursdays",
+    "Actually, Saturday morning would be easier"
+   ],
+   "expect": {
+    "template": "offer_sites_constrained",
+    "must_contain_any": [
+     "Saturday",
+     "Sat "
+    ],
+    "must_not_contain": [
+     "Mon-Fri",
+     "22 Example Rd",
+     "photo ID",
+     "Which works for you"
+    ],
+    "max_questions": 1,
+    "max_segments": 2,
+    "ack_words": [
+     "got it",
+     "Saturday"
+    ]
+   }
+  },
+  {
+   "id": "cw-02",
+   "title": "Evening constraint: only the late site, evening hours named",
+   "patient": 6,
+   "turns": [
+    "I work until 6 most days"
+   ],
+   "expect": {
+    "template": "offer_sites_constrained",
+    "must_contain_any": [
+     "Brunswick"
+    ],
+    "must_not_contain": [
+     "Riverbend Lab - Bath (",
+     "overdue",
+     "still open"
+    ],
+    "max_questions": 1
+   }
+  },
+  {
+   "id": "cw-03",
+   "title": "Caregiver near Bath, Tuesday mornings: greeted as caregiver, Tuesday hours",
+   "patient": 15,
+   "turns": [
+    "I'm his daughter and I handle his appointments. I only have Tuesday mornings. What's close to Bath?"
+   ],
+   "expect": {
+    "template": "offer_sites_constrained",
+    "must_contain_any": [
+     "Tue",
+     "Tuesday"
+    ],
+    "max_questions": 1
+   }
+  },
+  {
+   "id": "cw-04",
+   "title": "Plan confirmed: walk-in intention, never 'appointment confirmed', reminder promised",
+   "patient": 1,
+   "turns": [
+    "Sure, where do I go?",
+    "The first one works, Friday"
+   ],
+   "expect": {
+    "template": "offer_slots",
+    "must_contain_any": [
+     "Friday",
+     "Fri"
+    ],
+    "must_not_contain": [
+     "appointment confirmed",
+     "appointment is booked",
+     "reserved for you"
+    ],
+    "max_questions": 0
+   },
+   "_v5_note": "Expectation changed Sept 16 (v5): at a bookable site a confirmed day yields offer_slots (two open times or WALK IN) before plan_confirmed; still never 'appointment confirmed'."
+  },
+  {
+   "id": "cw-05",
+   "title": "Cost question: no price, verified answer promised",
+   "patient": 4,
+   "turns": [
+    "How much is this going to cost me? I have no insurance"
+   ],
+   "expect": {
+    "template": "cost_ack",
+    "must_not_contain": [
+     "$"
+    ],
+    "must_contain_any": [
+     "business day",
+     "verified",
+     "billing"
+    ],
+    "max_questions": 0
+   }
+  },
+  {
+   "id": "cw-06",
+   "title": "Transport barrier: approved ride instruction carried verbatim facts (phone), no invented options (v4: resolved by the ride program, no person)",
+   "patient": 3,
+   "turns": [
+    "I don't have a car and can't get there"
+   ],
+   "expect": {
+    "template": "transport_resolved",
+    "must_contain_any": [
+     "207-555-0199",
+     "ride"
+    ],
+    "max_questions": 1
+   },
+   "_v4_note": "Expectation changed Sept 16: the resolver sends the approved ride program without a Kate item (transport_resolved); v3 sent transport_ack and escalated."
+  },
+  {
+   "id": "cw-07",
+   "title": "Already done elsewhere: thanks, asks where in one question, no more texts promised",
+   "patient": 8,
+   "turns": [
+    "I already had it done last week"
+   ],
+   "expect": {
+    "template": "already_completed_ack",
+    "max_questions": 1,
+    "must_contain_any": [
+     "lab",
+     "where",
+     "somewhere else"
+    ]
+   }
+  },
+  {
+   "id": "cw-08",
+   "title": "Correction after a plan: the plan moves to Friday (naming the corrected Thursday is fine)",
+   "patient": 17,
+   "turns": [
+    "I work until 5, Thursdays are best",
+    "ok the first one",
+    "wait no, I said Friday not Thursday"
+   ],
+   "expect": {
+    "must_contain_any": [
+     "Friday",
+     "Fri"
+    ],
+    "must_not_contain": [
+     "Thursday Sep",
+     "plan is Thursday",
+     "8am",
+     "10am",
+     "noon"
+    ],
+    "max_questions": 0,
+    "template_in": [
+     "offer_slots",
+     "offer_slot_one",
+     "plan_confirmed"
+    ]
+   },
+   "_v5_note": "V5-6: slots must fit the stated bound (after 5pm); when none fit on the simulated calendar the walk-in plan is confirmed instead. Never a time before 5pm."
+  },
+  {
+   "id": "cw-09",
+   "title": "Fewer reminders: respectful, one more reminder stated",
+   "patient": 20,
+   "turns": [
+    "You don't need to keep reminding me, I'll get to it"
+   ],
+   "expect": {
+    "template": "fewer_reminders_ack",
+    "must_not_contain": [
+     "overdue",
+     "missed"
+    ],
+    "max_questions": 0,
+    "stop_footer": false,
+    "must_contain_any": [
+     "STOP"
+    ]
+   }
+  },
+  {
+   "id": "cw-10",
+   "title": "Timed glucose test: start-by limit carried, only the capable site",
+   "patient": 19,
+   "turns": [
+    "where can I go for this?"
+   ],
+   "expect": {
+    "template_in": [
+     "offer_sites",
+     "offer_sites_nearby"
+    ],
+    "must_contain_any": [
+     "10am"
+    ],
+    "must_not_contain": [
+     "Riverbend Lab - Bath",
+     "glucose"
+    ],
+    "max_questions": 1,
+    "must_contain_all": [
+     "Brunswick",
+     "10am"
+    ]
+   }
+  }
+ ]
+}
