@@ -3,9 +3,9 @@ sending here).
 
 portal_relay mode sends the patient's OWN words to the ordering provider's office as a patient-authored message.
 The application supplies the subject (order reference) and the body verbatim; no model writes any of it.
-Production adapters (partner-specific, not standard FHIR core): Epic patient-message creation through its vendor
-services / App Market, Oracle Health messaging, athenahealth patient messaging.  Each needs per-site enablement and
-the partner's approval of a third party sending patient-authored messages.
+Production portal messaging is partner-dependent.  This prototype does not verify any vendor's write interface or
+permissions; each partner needs per-site enablement and its own approval of a third party sending patient-authored
+messages.
 """
 from __future__ import annotations
 

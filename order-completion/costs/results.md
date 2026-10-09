@@ -67,13 +67,9 @@ C note: 2x runpod_h200_secure at $4.59/GPU-hr 24/7 = $6610 + MLOps 0.25 FTE $500
 | partner_feed_adapter_and_matching | $30,000 | SFTP/FHIR export ingestion, identifier mapping, reconciliation; depends entirely on the partner's interface |
 | messaging_go_live | $10,000 | 10DLC registration, Twilio webhook hardening, delivery receipts, opt-out audit |
 | live_model_evaluation | $20,000 | replace mock with live adapter, build labeled eval set from partner-approved samples, measure intent accuracy and escalation precision |
-| security_review_allowance | $40,500 | pro forma Turn 11 allowance (Sara Lazarus line); not a quote |
+| security_review_allowance | $40,500 | security-review allowance [A]; not a quote |
 | legal_baa_privacy | $15,000 | ASSUMED allowance: BAA, partner contact-process approval, consent language review |
-| **Total** | **$115,500** | engineer month loaded at $20,000 (pro forma [A]) |
-
-## Founder compensation (separate; recorded provision, not a software cost)
-
-Founder A $15,000/mo + Founder B $15,000/mo, 20% burden assumed → $36,000/mo combined.  Source: CLAUDE.md / internal 18-month pro forma (not included).
+| **Total** | **$115,500** | engineer month loaded at $20,000 [A] |
 
 ## Unknowns and non-assertions
 

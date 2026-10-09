@@ -189,13 +189,7 @@ def markdown(results, measured):
         usd = v.get("usd") or v["engineer_months"] * d["engineer_month_loaded"]
         total_dev += usd
         lines.append("| %s | $%s | %s |" % (k, "{:,.0f}".format(usd), v["note"]))
-    lines += ["| **Total** | **$%s** | engineer month loaded at $%s (pro forma [A]) |" % ("{:,.0f}".format(total_dev), "{:,}".format(d["engineer_month_loaded"])), "",
-              "## Founder compensation (separate; recorded provision, not a software cost)", "",
-              "Founder A $%s/mo + Founder B $%s/mo, %d%% burden assumed → $%s/mo combined.  Source: %s." % (
-                  "{:,}".format(PRICES["founder_comp"]["founder_a_per_month"]), "{:,}".format(PRICES["founder_comp"]["founder_b_per_month"]),
-                  round(100 * PRICES["founder_comp"]["burden_pct"]),
-                  "{:,.0f}".format((PRICES["founder_comp"]["founder_a_per_month"] + PRICES["founder_comp"]["founder_b_per_month"]) * (1 + PRICES["founder_comp"]["burden_pct"])),
-                  PRICES["founder_comp"]["source"]), "",
+    lines += ["| **Total** | **$%s** | engineer month loaded at $%s [A] |" % ("{:,.0f}".format(total_dev), "{:,}".format(d["engineer_month_loaded"])), "",
               "## Unknowns and non-assertions", "",
               "- A2P 10DLC registration and campaign fees: not listed on Twilio's pricing page; unknown.",
               "- Carrier pass-through fees: AT&T/T-Mobile read; Verizon and inbound fees not read; $0.004 blended is an assumption.",

@@ -1,6 +1,6 @@
 # Operating method: Claude Code as a supervised analyst inside a client's data perimeter
 
-This exhibit is the reusable method behind a real engagement.  In spring and summer 2026 I ran a 60-hour fixed-scope risk-adjustment assessment for a large employed physician group.  The group carries Medicare Advantage risk under delegated contracts with two payers, runs an MSSP ACO, and owns a provider-sponsored health plan.  The question was whether their coding workflow captured the conditions their physicians documented, and what the gap was worth.
+This exhibit is the reusable method behind a real engagement.  In spring and summer 2026 I ran a 60-hour fixed-scope risk-adjustment assessment for a large employed physician group.  The question was whether their coding workflow captured the conditions their physicians documented, and how to evaluate what the gap was worth.  The client is de-identified.  The program examples and every figure in this exhibit are illustrative.
 
 The analysis ran on a Claude Code instance inside the client's own environment.  I never wrote the SQL.  I defined the questions, built the operating framework, ran the instance, caught what it got wrong, and decided what was true.  The client's analytics team independently validated the results.
 
@@ -9,7 +9,7 @@ The analysis ran on a Claude Code instance inside the client's own environment. 
 - No client data.  No member counts, row counts, scores, or dollar figures from the engagement appear here.  Where a prompt needs a number, the number is invented and the prompt says so.
 - No deliverables.  The report, the appendix, and the handoff repository belong to the client.
 - No runnable SQL or model code.  The method is the point.
-- No client identity.  Under the services agreement the client's identity and information are theirs.  Under §8 of the same agreement the prompts, methods, and analytical frameworks are mine.  This exhibit stays on my side of that line on purpose.
+- No client identity.  Under the services agreement the client's identity and information are theirs.  Under the same agreement the prompts, methods, and analytical frameworks are mine.  This exhibit stays on my side of that line on purpose.
 
 ## The attribution, stated plainly
 
@@ -27,7 +27,7 @@ Kate defined the questions and the operating framework and was the operator insi
    │  Has: warehouse access, the CMS  │   prompt file  │  Reads only what the analyst      │
    │  model package, a working repo   │ ◄───────────── │  returns                          │
    │                                  │                │  Does: QA, synthesis, drafting,   │
-   │  Does: runs SQL, runs the model, │   raw output   │  all dollar math, the client      │
+   │  Does: runs SQL, runs the model, │  result files  │  all dollar math, the client      │
    │  writes raw results to files     │ ─────────────► │  report                           │
    │                                  │                │                                  │
    │  May not: conclude, celebrate,   │                │  May not: touch the data          │

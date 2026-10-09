@@ -46,10 +46,9 @@ partner data (spec: docs/partner-data-specification.md; schema: data/schema/part
 
 | Claim (where it appeared) | Status in this build | What would verify it |
 |---|---|---|
-| Epic exposes patient-portal message creation to third parties as a FHIR-style vendor service (v4 brief §1) | **Unverified.**  Not checked against vendor documentation; the relay adapter is an interface with a simulation behind it | Read Epic's open API catalogue for the specific patient-message API and its App Market terms; confirm with the partner's Epic team |
-| Oracle Health / athenahealth have equivalent write APIs (v4 brief §1) | **Unverified** | Same, per vendor |
+| A partner's record system permits a third party to send a patient-authored portal message (v4 brief §1) | **Unverified.**  This prototype implements only a simulated portal adapter | Confirm the specific interface and permissions with the partner before implementing a production adapter |
 | The Census geocoder is free, keyless and suitable (v4 brief §3, `geo.py`) | **Unverified.**  Never called; the class is a placeholder | Call it in a sandbox with a synthetic address; read its terms |
-| Opus 5 is "the strongest model available under a zero-data-retention BAA"; Fable is ineligible (platform-futureproofing §1) | **Unverified this session.**  Console/BAA terms were not re-read | Re-read the Console's BAA configuration page and the model eligibility list |
+| Opus 5 is "the strongest model available under a zero-data-retention BAA"; Fable is ineligible (an internal platform note) | **Unverified this session.**  Console/BAA terms were not re-read | Re-read the Console's BAA configuration page and the model eligibility list |
 | Model prices and prompt-cache minimums in `costs/prices.json` | Read once on Sept 15 from the pricing page; **not re-checked** | Re-read before any cost claim leaves the building |
 | Health systems accept portal-link routing as governance-friendly (v4 brief §1) | **Belief, untested** with any partner | One CMIO conversation |
 | Twilio failure classes / signature validation (README) | Unit-tested against a patched HTTP layer; **signature check not verified against a known-good vector** | Run Twilio's validator sample |

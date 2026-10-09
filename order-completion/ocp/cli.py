@@ -1,4 +1,4 @@
-"""Command line entry points.  Run from prototype/order-completion:
+"""Command line entry points.  Run from order-completion:
 
   python3 -m ocp seed            # fresh synthetic session: 20 interactive patients, initial outreach sent (Kate's start point)
   python3 -m ocp demo            # scripted 20-scenario replay, prints narrative + PASS/FAIL ledger

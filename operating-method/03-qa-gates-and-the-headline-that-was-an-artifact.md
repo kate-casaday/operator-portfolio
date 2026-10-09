@@ -2,9 +2,9 @@
 
 ## What happened
 
-The core of the engagement was a four-quadrant reconciliation.  Take every condition a physician documented in the coding-opportunity platform and every condition that reached a claim.  Cross them.  Quadrant one is documented and claimed.  Quadrant two is documented and not claimed.  Quadrant three is claimed and not documented.  The second quadrant is revenue the group earned and did not bank.  The third is audit exposure.  This grid is the measurement chassis.  Getting it right was the deliverable.
+The core of the engagement was a four-quadrant reconciliation.  Take every condition a physician documented in the coding-opportunity platform and every condition that reached a claim.  Cross them.  Quadrant one is documented and claimed.  Quadrant two is documented and not claimed.  Quadrant three is claimed and not documented.  The second quadrant is a follow-up question after the join and claims lag are checked.  The third is a reconciliation question, not an established audit finding.  This grid is the measurement chassis.  Getting it right was the deliverable.
 
-The first morning the analyst instance ran all five queries, it came back with "all five complete" and a headline: an opportunity range in the millions of dollars, with a bar chart.
+The first morning the analyst instance ran all five queries, it came back with "all five complete" and a headline: a headline opportunity range, with a bar chart.
 
 By that afternoon the headline was gone.  Here is how.
 
@@ -12,7 +12,7 @@ By that afternoon the headline was gone.  Here is how.
 
 **The logical impossibility test.**  The reconciliation was run at two grains.  At the diagnosis-code level, a handful of members landed in quadrant one.  At the HCC level, zero did.  That ordering cannot happen in a correct build.  Every diagnosis code that matches rolls up to an HCC in the crosswalk, so any code-level match must also be an HCC-level match.  HCC-level matches below code-level matches means one thing: the two sides of the join carried different HCC strings.  A diagnostic batch that evening proved it.  One side wrote the HCC with a text prefix and the other wrote the bare number.  Exact string equality never matched.  Every documented condition fell into quadrant two, and quadrant two is what got multiplied into dollars.
 
-**The join-grain error.**  The query also required the documented visit and the claim's service date to fall within one day of each other, as a hard condition of the join.  Risk-adjustment capture is a member-by-condition-by-year question.  A condition documented in January and supported by a claim in March is captured.  The one-day window threw it into the gap.  When the window was quantified it kept under one percent of true pairs.
+**The join-grain error.**  The query also required the documented visit and the claim's service date to fall within one day of each other, as a hard condition of the join.  Risk-adjustment capture is a member-by-condition-by-year question.  A condition documented in January and supported by a claim in March is captured.  The one-day window threw it into the gap.  When the window was quantified it had discarded almost every true pair.
 
 **The lag confound.**  The claims feed was current to April.  The documentation feed was current to June.  Anything documented after April had no claim yet, by timing, not by failure.  Quadrant two had to be split into genuine gap and pending lag before it meant anything.
 

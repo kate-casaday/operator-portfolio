@@ -1,5 +1,7 @@
 # What the order-completion prototype shows — one page
 
+*Historical snapshot of round two (September 15, 2026).  For the current implementation and evidence, read [the technical brief](technical-brief.md).*
+
 *StealthCo · September 15, 2026 · v0.3 (round two) · synthetic data only · built by Claude Code, independently reviewed by Codex (internal review record, not included in this portfolio)*
 
 **The patient problem.**  A health system writes lab orders that sit open for weeks: the patient meant to

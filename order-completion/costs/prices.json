@@ -51,20 +51,16 @@
   },
   "human": {
     "loaded_hourly_rate_nonfounder": 35.0,
-    "note": "ASSUMED contractor rate for nonclinical operations support if Kate's time is replaced. Founder time is reported in hours and NOT priced into per-patient cost; founder compensation is listed separately."
-  },
-  "founder_comp": {
-    "founder_a_per_month": 15000, "founder_b_per_month": 15000, "burden_pct": 0.20,
-    "source": "CLAUDE.md / internal 18-month pro forma (not included)", "note": "Recorded provision; not an operating cost of the software."
+    "note": "ASSUMED contractor rate for nonclinical operations support if Kate's time is replaced. Founder time is reported in hours and NOT priced into per-patient cost."
   },
   "development_one_time": {
     "engineer_month_loaded": 20000,
-    "source": "internal 18-month pro forma (not included)",
+    "source": "internal planning assumption [A]",
     "items": {
       "partner_feed_adapter_and_matching": {"engineer_months": 1.5, "note": "SFTP/FHIR export ingestion, identifier mapping, reconciliation; depends entirely on the partner's interface"},
       "messaging_go_live": {"engineer_months": 0.5, "note": "10DLC registration, Twilio webhook hardening, delivery receipts, opt-out audit"},
       "live_model_evaluation": {"engineer_months": 1.0, "note": "replace mock with live adapter, build labeled eval set from partner-approved samples, measure intent accuracy and escalation precision"},
-      "security_review_allowance": {"usd": 40500, "note": "pro forma Turn 11 allowance (Sara Lazarus line); not a quote"},
+      "security_review_allowance": {"usd": 40500, "note": "security-review allowance [A]; not a quote"},
       "legal_baa_privacy": {"usd": 15000, "note": "ASSUMED allowance: BAA, partner contact-process approval, consent language review"}
     }
   }

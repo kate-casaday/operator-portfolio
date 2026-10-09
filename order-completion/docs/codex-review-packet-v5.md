@@ -1,13 +1,13 @@
 # Codex review packet — Chief of Health version 5 (Sept 16, 2026)
 
-*For the Red Team's closing review under `ops/dual-model-protocol.md`.  Point: Claude Code.  Everything synthetic; no credentials, no paid calls, no network.*
+*For the Red Team's closing review under the dual-model protocol (see `working-system/`).  Point: Claude Code.  Everything synthetic; no credentials, no paid calls, no network.*
 
 ## What to read, in order
 
 1. the internal v5 brief (not included) — Kate's direction and the design in one page, including the **assertions audit**.
-2. `prototype/order-completion/docs/partner-data-specification.md` + `data/schema/partner-data-v5.schema.json` + `data/examples/*.json`.
-3. `prototype/order-completion/docs/architecture-v5.md` — functional / simulated / partner-dependent / unverified, per area.
-4. `prototype/order-completion/README.md` — "What changed in version 5", commands, the demo walkthrough.
+2. `order-completion/docs/partner-data-specification.md` + `data/schema/partner-data-v5.schema.json` + `data/examples/*.json`.
+3. `order-completion/docs/architecture-v5.md` — functional / simulated / partner-dependent / unverified, per area.
+4. `order-completion/README.md` — "What changed in version 5", commands, the demo walkthrough.
 5. The last section of the internal review record (not included) ("Version 5 build") — what ran, test changes, and Point's asks.
 
 ## Code map (new in v5)
@@ -37,7 +37,7 @@
 ## How to run
 
 ```bash
-cd prototype/order-completion
+cd order-completion
 python3.11 -m unittest discover -s tests -t .      # expected: all pass (count in the README)
 python3.11 -m ocp demo --quiet                     # expected: 41/41
 python3.11 -m ocp serve                            # then /, /referrals, /facts, /improve, /conversation/<id>

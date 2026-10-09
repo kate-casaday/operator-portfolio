@@ -8,28 +8,19 @@ Everything here is synthetic.  No real patient, partner, phone number, site or p
 
 ## Start here
 
-**Python 3.11 from version 3** (the Anthropic SDK needs 3.10+).  Standard library only in mock mode; the SDK lives
-in a project virtual environment (`.venv`, gitignored).  Nothing here needs credentials except the live modes.
+Python 3.11.  Mock mode uses only the standard library and needs no credentials.  From the repository root:
 
 ```bash
 cd order-completion
-python3.11 -m venv .venv && .venv/bin/pip install anthropic        # once
-
-bin/run.sh                                       # Operations page + Conversation pages on http://127.0.0.1:8765, mock mode, no cost
-bin/run.sh test                                  # full test suite (257 as of Sept 23, 2026)
-bin/run.sh live                                  # same, with Claude Opus 5 writing the words (key read from the macOS Keychain; see bin/store-key.sh)
-bin/run.sh eval --set heldout --budget-usd 0.50 --max-calls 20 --yes-i-accept-paid-calls   # PAID classification eval
-
-python3.11 -m ocp seed                           # fresh synthetic session: 25 interactive patients, first outreach sent
-python3.11 -m ocp demo                           # 41 scripted synthetic scenarios (31 = the v5 end-to-end journey) → PASS/FAIL ledger
-python3.11 -m ocp serve --model anthropic        # live classifier + live writer (needs ANTHROPIC_API_KEY in this shell)
-python3.11 eval/run_eval.py --adapter mock --set heldout        # rule-based simulation on held-out conversation cases (not model accuracy)
-python3.11 eval/run_compose_eval.py --composer fact             # wording evaluation with the deterministic writer (no cost)
-python3.11 eval/opener_samples.py --composer fact               # the 20-opener sample set a partner reviews (no cost)
-python3 costs/cost_calculator.py                 # baseline cost model → costs/results.md
-python3 costs/workload_scenarios.py              # low / medium / high conversational-workload scenarios → costs/workload_results.md
-python3 -m ocp reset                             # delete var/ocp.sqlite
+python3.11 -m unittest discover -s tests -t .     # full test suite, mock mode (257 tests)
+python3.11 -m ocp demo --quiet                     # 41 scripted synthetic scenarios → PASS/FAIL ledger
+python3.11 -m ocp seed                             # fresh synthetic session: 25 interactive patients, first outreach sent
+python3.11 -m ocp serve                            # Operations page + Conversation pages on http://127.0.0.1:8765, mock mode, no cost
 ```
+
+Open http://127.0.0.1:8765 and choose an active conversation.  The demo runs the scripted scenarios and replaces the selected database, including feedback stored there.  Seed then resets the conversations for an interactive session and preserves feedback rows.  Run these commands before collecting feedback you want to keep in its original conversation.
+
+Live modes, the paid evaluations, and the cost scripts (`costs/`) are described at the end of this file.  The live-mode wrapper `bin/run.sh` expects a project virtual environment with the Anthropic SDK installed.
 
 ### What changed on Sept 23, 2026 — feed integrity; brief: internal, not included
 
@@ -197,8 +188,7 @@ python3 -m ocp reset                             # delete var/ocp.sqlite
 
 1. `bin/run.sh`, open http://127.0.0.1:8765.  (Click *Fresh synthetic session* at any time: conversations reset,
    feedback rows are kept and archived.)
-2. On **Operations**, click any active conversation; after a fresh session all 20 are in state `outreach_sent` with
-   the first text already sent, written from the fact sheet.
+2. On **Operations**, click any active conversation; after a fresh synthetic session the initial outreach has already been sent, written from the fact sheet.
 3. On the **Conversation** page type as the patient, e.g. `I work until 6 and only have Thursdays`, then
    `Actually, Saturday morning would be easier`.  The reply comes from the same code path a real text would take.
    Under each automated message, *why* shows the decision that produced it (rule, intent, effective constraints,
@@ -221,10 +211,7 @@ Export is refused unless every patient in the evidence is marked synthetic by th
 |---|---|
 | **Implemented and tested** (`tests/`; `python3.11 -m ocp demo`, 41/41) | **Version 5:** partner data schema and examples, fact cards with role-gated chart review, append-only order history with replacement / modification / attendance and patient-reported change reconciliation, referral records with lifecycle and gated resolution, simulated booking with four separate outcomes, feedback → versioned evaluation cases → candidate changes with release history, the v5 measures.  **Version 4:** clinical handoff modes (portal link / portal relay with a simulated portal adapter / clinician queue), clinical pause and follow-up, approved prep answers, code-decided emergency text with nearest urgent care, the operational resolver with menu-building, rules resolver and rules reviewer, live resolver and reviewer adapters (Claude; OpenAI prepared, not exercised), the unclear menu, geocoding with stored patient locations, distances on the fact sheet, out-of-area handling, the location-share page, the shadow planner, the Automation section.  **Version 3:** composer contract (fact sheet → model text → fact check → template fallback), deterministic fact writer, lab capability matching with timed-test start limits, fact-fed opener with variant assignment and variant analytics, per-action commitments (`ACTION_GUIDE`), application spend brake, Operations and Conversation pages.  **Rounds 1–2:** order import with a configurable 15–45-day overdue threshold and intended due dates; eligibility and consent rules; outreach cadence with quiet hours, pause, per-partner stale-feed holds; intent handling for locations, hours, scheduling constraints (combined, corrected, evenings-or-weekends), transport, cost, clinical questions, requests for clinical staff or a real person, fewer reminders, completion claims (in/out of network), STOP/HELP/wrong number; preferences with source, statement link and correction history; verified-directory-only offers with content-approval revalidation at send; plans that are concrete dates checked against site hours and stated time constraints; escalation queues (Kate's operational queue, partner clinician queue) with assignee, business-hour deadlines, overdue flags, accepted status; commit-before-call send protocol with ambiguous-outcome handling; inbound recovery bound to the original sender; per-conversation ceilings; decision records on every outbound; the feedback loop and task export; the HTTP dashboard and API |
 | **Simulated** (labeled as such on screen) | The scheduler (version 5; deterministic availability, in-memory bookings); the operator/clinical-reviewer role switch; partner evidence on referrals (entered by hand); the rule extractor's stand-in for a live extractor; the portal adapter (version 4: the relayed message is stored and "sent" in memory; no health system receives it); the geocoder (a local centroid table); the model in mock mode (a deterministic rule-based classifier and a deterministic fact writer stand in; simulated attempts are labeled and cost nothing); SMS transport (nothing leaves the process); the clinician handoff (a queue row with a due time — **nobody is notified, and clicking "accept" notifies nobody either**; it records that a person took the item); the partner feed (JSON files); the clock |
-| **Exercised live on Sept 15, 2026 (synthetic patients, Kate's Chief of Health Demo workspace)** | The live classifier (`ocp/llm/anthropic_adapter.py`): held-out intent agreement **17/19 on Claude Opus 5** ($0.05; the two misses are `willing` vs `confirm_plan` on "yeah I could do the one in bath, thursday after work maybe 5" and "Friday morning works, the Bath one").  The live writer (`ocp/llm/composer.py`): wording evaluation **10/10 on Claude Opus 5** and **10/10 on Claude Sonnet 5**, and **20/20 openers** with zero fact-check fallbacks on Opus 5, re-run after the Codex closing review against the **allowlist** fact check (every day, time, number, proper noun, address, lab word, provider mention and clinical/price word must trace to the fact sheet or the patient's words; per-action commitments are anchors).  Total spent building, reviewing and evaluating version 3: about $2.75.  See `eval/results/` for every text |
-| **Prepared but not exercised** | The live resolver and Claude reviewer (version 4; the classifier and writer were exercised live in version 3, the resolver was not — no paid calls were made on Sept 16); the OpenAI reviewer (needs the SDK, a key and a BAA); the Census geocoder placeholder; the Twilio adapter (sending disabled by default; failure classes unit-tested with a patched HTTP layer; signature check not verified against a known-good vector) |
-| **Partner-dependent** | Every interface in the data specification; the designated clinical reviewer; urgency and escalation criteria; who owns each receiving team; whether relay or booking is permitted at all; real feed format and cadence; consent flag; the clinician queue's real delivery and closure; identity-verification policy; template wording approval; BAA/hosting; which threshold (15–45) applies |
-| **Still a hypothesis** | The unverified claims listed in `docs/architecture-v5.md` §3 (vendor portal APIs, the Census geocoder, BAA/model eligibility, prices); that chart review by an operator is acceptable to a partner's privacy office; that "documented reason, quoted" satisfies patients; that a health system will accept the portal-link handoff as "not jamming the portal" (it is the patient writing, as today) and later the relay; that the resolver's menus cover most real dead ends; that the planner's shadow agreement is high enough to promote; that the live results hold on real patient language (the held-out set is 19 synthetic replies written by the people who wrote the prompt; the wording set is 10 synthetic threads); that patients reply to the opener at all (variant analytics exist, data does not); the out-of-area lookup ("I'm in Florida") is not built; real reply and escalation rates; human minutes per patient; that the economics hold (all workload rates are assumptions); that this produces measurable completion lift |
+| **Exercised live on Sept 15, 2026 (synthetic patients, Kate's demo workspace)** | The live classifier (`ocp/llm/anthropic_adapter.py`): held-out intent agreement **17/19 on Claude Opus 5** ($0.05; the two misses are `willing` vs `confirm_plan` on "yeah I could do the one in bath, thursday after work maybe 5" and "Friday morning works, the Bath one").  The live writer (`ocp/llm/composer.py`): wording evaluation **10/10 on Claude Opus 5** and **10/10 on Claude Sonnet 5**, and **20/20 openers** with zero fact-check fallbacks on Opus 5, re-run after the Codex closing review against the **allowlist** fact check (every day, time, number, proper noun, address, lab word, provider mention and clinical/price word must trace to the fact sheet or the patient's words; per-action commitments are anchors).  Total spent building, reviewing and evaluating version 3: about $2.75.  The run logs are not included in this portfolio.md` §3 (vendor portal APIs, the Census geocoder, BAA/model eligibility, prices); that chart review by an operator is acceptable to a partner's privacy office; that "documented reason, quoted" satisfies patients; that a health system will accept the portal-link handoff as "not jamming the portal" (it is the patient writing, as today) and later the relay; that the resolver's menus cover most real dead ends; that the planner's shadow agreement is high enough to promote; that the live results hold on real patient language (the held-out set is 19 synthetic replies written by the people who wrote the prompt; the wording set is 10 synthetic threads); that patients reply to the opener at all (variant analytics exist, data does not); the out-of-area lookup ("I'm in Florida") is not built; real reply and escalation rates; human minutes per patient; that the economics hold (all workload rates are assumptions); that this produces measurable completion lift |
 
 ## Layout
 
@@ -245,7 +232,6 @@ Export is refused unless every patient in the evidence is marked synthetic by th
 | `ocp/scenarios.py` | 41 scripted scenarios (14 from round one, six round-two experiences, ten version 4, eleven version 5: the end-to-end journey, missing rationale, conflicting notes, role gating, plan change, ambiguous ownership, overdue referral, failed relay, duplicates + emergency follow-up, stale prep, unsupported claim; plus the version 4 list: emergency, portal link, prep, relay, resolver alternative, absolute constraint, mobile stop, out of area, location share, menu); `seed` uses the same cohort without scripting |
 | `data/` | Synthetic directory, orders feed (`"synthetic": true`), open product decisions |
 | `eval/` | Dev and held-out conversation cases, runner, live-eval instructions |
-| `costs/` | `prices.json` (sourced, dated), baseline calculator, workload scenarios, results |
 | `docs/` | Technical brief (canonical, dated); the Sept 15 decision-history brief; one-pager; architecture note; partner data specification |
 | `feedback/exports/` | Exported tasks (git-ignored) |
 
@@ -253,8 +239,8 @@ Export is refused unless every patient in the evidence is marked synthetic by th
 
 - STOP / HELP / wrong number are decided in code before any model call, win during pauses and holds, and
   suppress the **sender's** number; patient-level effects apply only if that is still the number of record.
-- Model output is validated field by field against a closed vocabulary; the model never decides scheduling facts,
-  completion status, consent or escalation.  Version 3+: the model writes the words of a reply within the fact
+- Model output is validated field by field against a closed vocabulary.  The model never decides scheduling facts,
+  completion status or consent.  Its validated intent classifications influence escalation routing.  Version 3+: the model writes the words of a reply within the fact
   sheet; version 4: the resolver picks from an application-verified menu; emergency wording, compliance, portal
   handoff, prep answers and the relayed message are never model-written.
 - Only sites and instructions in the verified directory (signed, unexpired) are offered; a content digest of
@@ -282,7 +268,9 @@ lexical allowlist and falling back to the approved template (see "What changed i
 confirmations, safety texts, the portal handoff, rationale answers, plan-change texts, booking confirmations and the
 relayed message itself are approved wording only.  The history of this decision (D6) is in `docs/technical-brief-2026-09-15-decision-history.md`.
 
-## Live model adapter and Twilio (optional; not exercised in round two)
+## Live model adapter and Twilio (optional)
+
+> Live classification is unverified for this checkout following a recorded schema rejection on September 23, 2026.  Use mock mode for the walkthrough.  See the technical brief, section 6.
 
 ```bash
 pip install anthropic && export ANTHROPIC_API_KEY=...     # or `ant auth login`

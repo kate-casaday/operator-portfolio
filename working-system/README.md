@@ -1,6 +1,6 @@
 # How I work: the repo is the operating system
 
-Since early 2026 every piece of my professional life has run out of a set of private git repositories, with Claude Code as the operator's tool inside each one.  This section describes the pattern, because the pattern is the thing that transfers.  The two exhibits beside it (`order-completion/`, `operating-method/`) are what the pattern produced.
+I run my consulting work and venture development from private git repositories, with Claude Code as the operator's tool inside each one.  This section describes the pattern, because the pattern is the thing that transfers.  The two exhibits beside it (`order-completion/`, `operating-method/`) are what the pattern produced.
 
 ## The shape
 
@@ -17,7 +17,7 @@ one repo per venture or engagement          life-os/  ← the layer above all of
   inbox/         anything captured on a phone lands here and is routed at the next session start
 ```
 
-Seven repositories, roughly 690 commits between January and October 2026.  Every commit was made in a Claude Code session with me in the chair.
+Seven repositories.  By my own count on October 9, 2026, roughly 690 commits between January and October 2026, every one made in a Claude Code session with me in the chair.  The repositories are private; the count is mine.
 
 ## The rules that make it work
 
@@ -31,9 +31,9 @@ Seven repositories, roughly 690 commits between January and October 2026.  Every
 
 ## Two smaller systems built the same way
 
-**A personal and small-business finance system** (local-only, zero third-party dependencies, 31 tests).  Statement PDFs are checksummed and archived, parsed into one canonical ledger, classified by rules in version control, and reported with as-of dates and coverage caveats.  Its non-negotiables: never commit a raw source, never delete an original, never store a full account number, never call an external API, never resolve an accounting judgment the owner or the accountant should make, and keep every import idempotent so a re-run creates zero duplicates.  Not included here because it is my money, but the rules are the point.
+**A personal and small-business finance system** (local-only, zero third-party dependencies, with its own test suite).  Statement PDFs are checksummed and archived, parsed into one canonical ledger, classified by rules in version control, and reported with as-of dates and coverage caveats.  Its non-negotiables: never commit a raw source, never delete an original, never store a full account number, never call an external API, never resolve an accounting judgment the owner or the accountant should make, and keep every import idempotent so a re-run creates zero duplicates.  Not included here because it is my money, but the rules are the point.
 
-**A work map.**  When I needed to decide what to do next with my career, I had Claude Code build an evidence-based map of fifteen months of work from three sources: the repositories, about 259 meeting transcripts, and sent mail.  The map, not my memory, is what the decision was made against.
+**A work map.**  When I needed to decide what to do next with my career, I had Claude Code build an evidence-based map of fifteen months of work from the repositories, the meeting transcripts, and sent mail.  The map, not my memory, is what the decision was made against.  The map and the correspondence are private.
 
 ## What this is not
 

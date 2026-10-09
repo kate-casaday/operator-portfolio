@@ -32,12 +32,12 @@ One stacked bar per program, built from the floor up:
 5. **Open confirmed suspects.**  Coder-validated, awaiting a visit.  The workflow-improvement lane.
 6. **Recapture headroom.**  Prior-year conditions not yet recaptured this year, deduplicated against layer 5 so suspect signal is not counted twice.
 
-Value at stake is layers 3, 5, and 6, priced by the program's mechanism.  Layer 3 alone is the floor.  Layers 3, 5, and 6 together are the ceiling.  Audit-defense exposure, the claimed-and-not-documented quadrant, is reported beside the build-up as a risk number.  It is never netted.
+Value at stake is layers 3, 5, and 6, priced by the program's mechanism.  Layer 3 alone is the floor.  Layers 3, 5, and 6 together are the ceiling.  The claimed-but-unmatched quadrant is reported separately for reconciliation.  It is not an established audit finding and is not netted against potential value.
 
 ## Floor and ceiling, stated as commitments
 
-Present the floor as committed where the mechanism is clean.  Present the ceiling as sized but unpriced where contract terms are missing.  Under-promise on any book where the supplied score is capped, suppressed, or absent.  A number the client cannot reproduce from their own terms is a number they will not use.
+Present the floor as committed where the mechanism is clean.  Present the ceiling as sized but unpriced where contract terms are missing.  Under-promise on any book where the supplied score is capped, suppressed, or absent.  A number the client cannot reproduce from their own terms is a number they will not use.  These are financial estimates, not collected revenue.  Each estimate needs validated inputs and the applicable contract basis.
 
 ## What goes where
 
-The analyst instance supplies member-by-condition lists per layer.  Coefficients, normalization, and dollars are applied on my side.  This is not only a privacy rule.  It is the rule that keeps a model from multiplying a bug by a rate and calling it an opportunity.
+The analyst instance returns what each layer contains.  Coefficients, normalization, and dollars are applied on my side, never inside the client's environment.  This is not only a privacy rule.  It is the rule that keeps a model from multiplying a bug by a rate and calling it an opportunity.

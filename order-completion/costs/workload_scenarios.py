@@ -58,7 +58,6 @@ def scenario_costs(name, sc, patients):
         "no_human_queue_rate": round(max(0.0, automated / patients), 3),
         "unresolved_rate": sc["unresolved_rate"],
         "dev_agent_usd": SCEN["development_agent_costs"]["monthly_usd_assumed"],
-        "founder_comp_usd": (PRICES["founder_comp"]["founder_a_per_month"] + PRICES["founder_comp"]["founder_b_per_month"]) * (1 + PRICES["founder_comp"]["burden_pct"]),
     }
 
 
@@ -75,12 +74,12 @@ def hours_budget_table(sc_name, sc, patients):
 
 SETUP_REASSESSMENT = [
     # task, status, estimate basis, dependency / who quotes
-    ("Partner feed adapter + identifier matching (orders, results, cancellations, consent)", "REMAINING — partner-dependent", "1.5 engineer-months [A, inherited from pro forma $20K/month]", "Partner interface (SFTP/CSV vs FHIR) decides the real size; no quote possible before that"),
+    ("Partner feed adapter + identifier matching (orders, results, cancellations, consent)", "REMAINING — partner-dependent", "1.5 engineer-months [A]", "Partner interface (SFTP/CSV vs FHIR) decides the real size; no quote possible before that"),
     ("Workflow engine, rules, state machines, outbox, holds, recovery", "DONE in synthetic form (this prototype)", "$0 remaining for v1 scope; hardening is ongoing", "Not a production integration; see 'still a hypothesis' list"),
     ("Live model adapter + labeled evaluation set + accuracy/escalation measurement", "PREPARED, not exercised (eval/run_eval.py; no paid calls made)", "1.0 engineer-month [A]", "Partner-approved sample replies; Kate's go-ahead on API spend"),
     ("Messaging go-live: 10DLC brand/campaign, webhook via Twilio SDK validator, delivery receipts, opt-out export", "REMAINING", "0.5 engineer-month [A]; 10DLC fees UNKNOWN (not on Twilio's page)", "Twilio account; partner sender identity"),
     ("Hosting on a BAA-capable cloud; secrets vault; audit retention; dashboard authentication", "REMAINING", "0.5 engineer-month [A] + hosting", "Cloud BAA; not priced here"),
-    ("Security design review, testing, remediation", "REMAINING — needs outside quote", "$40,500 allowance inherited from pro forma Turn 11 (Sara Lazarus line); NOT a quote", "Sara Lazarus or equivalent"),
+    ("Security design review, testing, remediation", "REMAINING — needs outside quote", "$40,500 allowance [A]; NOT a quote", "Independent security reviewer; quote needed"),
     ("Legal: BAA, partner contact-process approval, consent language, template review", "REMAINING — needs outside quote", "$15,000 allowance [A]", "Counsel; partner compliance"),
     ("Clinician queue integration (how the partner's clinicians receive and close items)", "REMAINING — partner-dependent; NOT in the original $115K", "unknown; 0.25-1.0 engineer-month depending on partner tooling", "Partner clinical operations"),
     ("Identity verification step before texting order detail", "REMAINING — decision needed; NOT in the original $115K", "0.25 engineer-month [A] if DOB challenge", "Kate + partner policy"),
@@ -111,7 +110,6 @@ def markdown(results, budgets):
     rowf("Kate operational time (hours, not $)", lambda r: r["kate_hours"], "escalations × minutes + 20 min/day oversight [A]")
     rowf("Partner clinician time (hours, partner's cost)", lambda r: r["clinician_hours_partner"], "[A]")
     rowf("Development-agent costs (coding assistants)", lambda r: r["dev_agent_usd"], "[A] $400/mo placeholder; unmetered; UNKNOWN")
-    rowf("Founder compensation", lambda r: r["founder_comp_usd"], "recorded provision [R], 20% burden [A]")
     L += ["", "One-time integration and launch work is in the reassessment table below, not in any monthly row.", "",
           "## Which escalation rates fit an operating-hours budget", "",
           "Kate's queue only (partner clinician time is the partner's).  Fixed oversight is subtracted first.  Appropriate clinical escalation is *required*, not a cost to minimize; this table only says what Kate's own queue can absorb.", ""]
@@ -128,7 +126,7 @@ def markdown(results, budgets):
         L.append("")
     L += ["## Self-hosted configuration — one scenario, labeled", "", SCEN["self_hosted_scenario"]["note"], "",
           "## Reassessment of the ~$115K one-time setup estimate", "",
-          "Inherited from round one; the engineer-month rate ($20K loaded) and the security/legal allowances come from the September 15 pro forma (Turn 11) and are assumptions, not quotes.  A synthetic implementation is not a completed production integration.", "",
+          "Inherited from round one; the engineer-month rate ($20K loaded) and the security/legal allowances are planning assumptions, not quotes.  A synthetic implementation is not a completed production integration.", "",
           "| Task | Status | Estimate basis | Dependency / who quotes |", "|---|---|---|---|"]
     for t in SETUP_REASSESSMENT:
         L.append("| %s | %s | %s | %s |" % t)

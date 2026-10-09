@@ -22,7 +22,11 @@ wrong-number cases are decided by code before any model (`decided_by: rule`), ex
 Results land in `eval/results/<timestamp>-mock-<set>.json` and the dashboard's "Open product decisions and
 evaluation failures" panel shows the latest runs.
 
-## Live-model evaluation (PAID; not run in round two)
+## Live-model evaluation (PAID)
+
+> Live classification is unverified for this checkout following a recorded schema rejection on September 23, 2026.  Use mock mode for the walkthrough.  See the technical brief, section 6.
+
+The results files named in this section are not included in this portfolio.
 
 Prerequisites: `pip install anthropic`, a credential (`ANTHROPIC_API_KEY` or `ant auth login`), and Kate's
 go-ahead on spend.  The command refuses to run without `--yes-i-accept-paid-calls`.
@@ -77,7 +81,7 @@ signal, then build a labeled set from partner-approved samples.
 
 ```bash
 python3.11 eval/run_compose_eval.py --composer fact                                            # deterministic writer, no cost
-bin/run.sh eval-compose   # not a mode; use the venv directly:
+bin/run.sh eval-compose   # optional live wording evaluation; paid calls require the runner's consent flag.  Or directly:
 .venv/bin/python eval/run_compose_eval.py --composer anthropic --model claude-opus-5 --budget-usd 1.00 --max-calls 40 --yes-i-accept-paid-calls
 ```
 

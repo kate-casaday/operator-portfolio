@@ -7,7 +7,7 @@
 
 ## 1. What it is
 
-A health system's clinicians write lab orders, and a share of them are never completed.  This prototype takes the orders that have sat unfilled past a threshold (45 days to start), runs a text conversation that gets the patient to the health system's own lab, and treats the health system's own result as the only thing that closes the order.  StealthCo operates no phlebotomists and no sites.  The prototype is Python with one SQLite file and runs locally with no credentials.
+A health system's clinicians write lab orders, and a share of them are never completed.  This prototype takes the orders that have sat unfilled past a threshold (45 days to start), runs a text conversation that gets the patient to the health system's own lab, and marks an order partner-verified complete only when the partner supplies results covering every outstanding line.  Human-attested external completion is recorded separately.  StealthCo operates no phlebotomists and no sites.  The prototype is Python with one SQLite file and runs locally with no credentials.
 
 It was built with an AI coding agent (Claude Code), and every version was independently reviewed by a second model (OpenAI Codex) before the next one started.
 
@@ -23,7 +23,7 @@ How it got here:
 ## 2. Shape
 
 ```
-partner data   (three-tier data specification and JSON schema; available on request)
+partner data   (docs/partner-data-specification.md; data/schema/partner-data-v5.schema.json)
    orders feed · order events · care teams · directory · routes · policies
    clinical notes (record connection OR authorized manual review)
         │ importer     idempotent; append-only order events
@@ -47,7 +47,7 @@ adapters (interchangeable)
    portal (simulated) · scheduling (simulated) · geography (local centroids)
 ```
 
-**Division of labor.**  Code decides every state change, every scheduling fact, completion and consent.  The model does two narrow things: it classifies the intent of an inbound message into a closed vocabulary, and it writes wording inside the fact sheet.  Classification does route clinical questions, so routing is not model-free; the code-only screens (STOP, emergency wording, clinical keywords when the model is unavailable) are the floor underneath it.  The fact check is **lexical, not semantic**: it proves facts and structure, not tone.
+**Division of labor.**  The application controls state changes and consent.  The model classifies replies into a closed vocabulary and can write wording inside an application-owned fact sheet.  An optional resolver selects from options built by the application, subject to review and execution checks.  Model classifications influence clinical routing; code screens (STOP, emergency wording, clinical keywords when the model is unavailable) and field-by-field validation constrain that routing.  The wording checker is **lexical, not semantic**.  Passing it does not prove that a message is clinically correct or semantically faithful.
 
 ## 3. What is functional, simulated, partner-dependent
 
@@ -66,11 +66,11 @@ The clinician handoff is a database row with a due time.  **Nobody is notified.*
 
 ## 4. Evidence
 
-- **220 automated tests pass** (Python 3.11, run September 18, 2026).  **41 of 41** scripted scenarios pass, including the version 5 end-to-end journey.
+- **Tests.**  The source contains 257 automated test methods.  The scenario tests exercise 41 scripted scenarios, including the version 5 end-to-end journey.  Run the commands in the README to check this checkout.
 - **Live model runs, September 15, 2026, synthetic patients only:** intent classification agreed on 17 of 19 held-out replies on Claude Opus 5; wording evaluation 10 of 10 on Opus 5 and on Sonnet 5; 20 of 20 opening messages with no fact-check fallback.  The held-out set is 19 synthetic replies written by the same people who wrote the prompt.  It is not model accuracy on real patient language.
 - **Prepared, not exercised:** the live resolver and reviewer (no paid model calls were made for versions 4 and 5); the OpenAI reviewer; the Twilio adapter (sending disabled; signature check not verified against a known-good vector).
-- **Independent review:** the second model reviewed every version.  Its version 5 closing review found ten defects (capability flags stored but not enforced, a failed cancellation reading as success, and eight more); all were fixed the same day with regression tests.  The full review record is available on request.
-- **Cost shape** (workload rates are labeled assumptions; model prices were read once on September 15 and not re-checked): model tokens are a rounding error at this workload.  SMS and human minutes dominate, and the operator's queue is the number that decides staffing.
+- **Independent review:** the second model reviewed every version.  Its version 5 closing review found ten defects (capability flags stored but not enforced, a failed cancellation reading as success, and eight more); all were fixed the same day with regression tests.  The full review record is internal and not included.
+- **Cost shape** (`costs/`; workload rates are labeled assumptions; model prices were read once on September 15 and not re-checked): model tokens are a rounding error at this workload.  SMS and human minutes dominate, and the operator's queue is the number that decides staffing.
 
 ## 5. Controls, and the kill switch (design placeholder: not built)
 
@@ -102,6 +102,8 @@ The clinician handoff is a database row with a due time.  **Nobody is notified.*
 
 Real SMS delivery; any real partner feed; the clinician handoff beyond a database row; concurrency under real webhook load; identity verification beyond the partner's phone on file; English only; one time zone; the dashboard has no authentication (it binds to the local machine only).  Reply rates, escalation rates and human minutes per patient cannot be estimated from scripted fixtures.  Claims this build did not check are tracked in an assertions audit: vendor portal write APIs, model eligibility under a business associate agreement, the Census geocoder, and current prices.  This is a synthetic prototype, not a demonstrated secure clinical platform.
 
+A saved September 23, 2026 evaluation records 55 live-classifier calls rejected by the API because the structured-output schema was too complex.  The September 15 results above describe an earlier run.  Current live-classifier operation has not been verified for this portfolio.  The local walkthrough uses a deterministic mock classifier.  The run log is not included.
+
 ## 7. Path to a supervised pilot
 
 1. Partner feed transport (SFTP or HTTPS pickup, or a push to our endpoint), credentials, and a scheduled worker that runs the pickup and the tick unattended (the prototype's pickup runs only when the tick is invoked); the validation, quarantine, health, alerting and the message to the partner's technical contact are built on our side (Sept 24).  Identifier reconciliation depends on the partner's interface.
@@ -131,4 +133,4 @@ These are the questions we are working through with advisors and prospective par
 | Sept 18, 2026 | 5 | First general edition.  Current through version 5; adds the kill-switch design placeholder. |
 | Sept 23, 2026 | 5 + feed integrity | Feed integrity built and reconciled after Codex's first review the same day: validation on arrival of both streams, atomic import, quarantine with per-patient holds, held files, the per-partner integrity block enforced at the send boundary (§5), late-file and silent-results detection with recovery, retained payloads, messages to the partner's technical contact.  §3 row, §7 item 1 and §8 question 1 revised.  Kill switch still not built. |
 
-*Confidential.  Please ask before forwarding.*
+*Published for portfolio review.  See [NOTICE.md](../../NOTICE.md).*

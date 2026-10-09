@@ -5,11 +5,11 @@
 *StealthCo · September 15, 2026 · v0.3 (round two) · Author: Claude Code (Point) · Independent review: Codex (see the internal Claude × Codex review record (not included in this portfolio))*
 
 **What this is.**  A runnable, credential-free prototype of the "stale order → text outreach → verified
-completion" loop you sketched on September 11 ("Claude Code and Twilio"), now with Kate's work surface: she
+completion" loop, now with Kate's work surface: she
 plays a synthetic patient, flags a response, says what should have happened, and exports a development task
 that carries the captured evidence.  Design constraint from Kate: *Kate and an algorithm* — maximize reliable
 automated assistance, explicit human escalation, measured human workload.  Synthetic data only.  Stdlib
-Python, one SQLite file.  Location: `prototype/order-completion/` (README has exact commands and the
+Python, one SQLite file.  Location: `order-completion/` (README has exact commands and the
 five-minute walkthrough).
 
 **Status vocabulary used below:** *implemented and tested* · *simulated* (labeled on screen) · *prepared but
@@ -268,8 +268,7 @@ decision D6 on the dashboard.
    audit export for the partner, reconciliation procedure for `ambiguous` rows.
 4. Hosting on a BAA-capable cloud; secrets in a vault; audit-log retention; access control on the
    dashboard (v0.1 has none — it binds to localhost only).
-5. Security review (Sara Lazarus allowance in the pro forma), then a supervised cohort with the
-   clinician queue staffed by the partner.
+5. Security review, then a supervised cohort with the partner's clinician queue staffed by the partner.
 
 ## 8. What a live partner still needs (partner-dependent, in order)
 
@@ -278,50 +277,9 @@ decides the adapter's size); a clinician-queue delivery mechanism and a named ow
 and intended-due-date semantics for their order mix; template and consent-language approval; identity
 policy before order detail; BAA-capable hosting.
 
-## 9. Questions for a health-system advisor (as sent)
+## 9. Partner questions
 
-1. Which of the two candidate partners (the FQHC or the 350-provider system) can produce a daily open-order
-   and result-status export with a consent flag, and who there owns the clinician queue?
-2. Is a template-only patient channel acceptable to a partner's compliance team as the v1, with model
-   free-text held back until an evaluation set exists — or will the partner want free-text from day one?
-3. What is the identity-verification bar before an order detail is texted: partner phone-on-file only,
-   or a challenge (date of birth) first?
-
-*Added September 15, 2026 (version 3 planning; Claude's questions, Kate's list).*
-
-4. **Surface choice.**  Version 3 calls Claude directly through the Anthropic Python SDK (Messages API with
-   structured outputs), one request per patient message, with the application owning eligibility, site
-   selection, fact checking, holds and escalation.  We chose this over a Console-created Managed Agent because
-   the guardrails and the outstanding-order data model are the company's asset and must live in our code, and
-   because a per-SMS reply with a hard fact check is a workflow, not an open-ended agent.  Anything you would
-   change before a partner's security team sees it?
-5. **HIPAA path on the model side.**  Anthropic offers a BAA on the first-party API in two configurations:
-   zero data retention for qualified accounts, or a "HIPAA-configured" organization with 30-day retention that
-   covers the Messages API features we use (prompt caching, structured outputs).  Which would a health-system
-   compliance team expect, and have you seen the timeline for getting a BAA signed with Anthropic?  Until then
-   the prototype runs on synthetic patients only.
-6. **SMS provider.**  Twilio (or an alternative) under a BAA, 10DLC brand and campaign registration for
-   healthcare messaging, and TCPA prior-express-consent for the first text: does consent captured at the
-   provider's intake cover a message sent by us on the provider's behalf, and who is the sender of record?
-7. **Secrets and hosting for a pilot.**  The prototype keeps a workspace-scoped API key in the shell environment
-   only.  For a pilot on real data, what is the smallest HIPAA-eligible footprint you would stand up (your
-   earlier Azure/Postgres budget line), and how should keys and the partner feed credentials be held?
-8. **The opener as a measured asset.**  We will record which first-text variant each conversation received and
-   report reply, plan and completion rates by variant.  What de-identification and consent posture lets us keep
-   that analytics dataset across partners as a company asset rather than partner-owned data?
-9. **Out-of-area lookup.**  A patient replies "I'm in Florida, is there a place near me?"  Is there a legitimate
-   national lab-locator data source (Quest, LabCorp, or the partner's reference-lab network) we can query, and
-   can a partner's order be drawn at a site outside its network under the partner's arrangement?
-
-10. **Pressure-test the $130K (added Sept 17, 2026).**  `finance/cost-to-build-and-volume-tiers-2026-09.md` puts the one-time
-    technology to a first supervised pilot at about $130K on top of version 5: partner feed adapter and identifier reconciliation
-    (1.5 engineer-months), messaging go-live (0.5), live-model evaluation from partner samples (1.0), version-3 leftovers (0.5),
-    a security-review allowance ($40.5K), legal/BAAs ($15K), hosting ($5K), at $20K per loaded engineer-month.  Your Sept 11
-    view was that one dedicated engineer is enough for this phase.  Two questions: (a) which of these lines would you cut, and
-    which would you double, having run an agentic SDLC on a real partner integration?  (b) is the $2M / 18-month frame
-    (two founders, one engineer, two systems) the right shape, or does a $500K–$750K, one-system, prove-it-first round get to
-    the same evidence?  Kate's stated intent (Sept 17): this is the discrete gap-closure business or nothing; she needs capital
-    committed or a clear "no" quickly.
+The current technical brief records the questions that remain before a supervised pilot.  See [the technical brief](technical-brief.md).  Partner correspondence and financing discussions are not included in this public history.
 
 ## 10. Version 3 (September 15, 2026): the model writes the words; the application owns the facts
 
@@ -366,7 +324,7 @@ live composer, provider failure, compliance/safety never composed, spend brake, 
 construction).  Demo 20/20.  Wording evaluation: fact writer 10/10; **Claude Opus 5 10/10** ($0.17) and
 **Claude Sonnet 5 10/10** ($0.07) with the final prompt after two rounds of prompt tightening documented in
 `eval/README.md`; **20/20 openers** on Opus 5 with no fact-check fallback ($0.29).  Live held-out classification
-**17/19** on Opus 5 ($0.05).  Total live spend for the build: about $2.20, all in Kate's `Chief of Health Demo`
+**17/19** on Opus 5 ($0.05).  Total live spend for the build: about $2.20, all in Kate's demo
 workspace.
 
 **Known limits.**  The out-of-area lookup ("I'm in Florida") is not built; the reply is the existing
@@ -381,5 +339,5 @@ lab words, provider mentions and clinical/price vocabulary, with day-and-time co
 per-action commitment anchors; every model-unavailable exit (usage ceiling, spend cap, provider failure) runs the same
 keyword screen so a nurse request still reaches the clinician queue.  Unknown test codes fail closed; openers carry send
 dependencies; variant analytics count sent exposures only.  162 tests; live 10/10 on both models and 20/20 openers against
-the stricter checker.  **The boundary is lexical, not semantic.**  Question 10 for you: would a partner's security team
+the stricter checker.  **The boundary is lexical, not semantic.**  Open question: would a partner's security team
 accept this, or should version 4 move to application-rendered fact cards with the model writing only the prose between them?
