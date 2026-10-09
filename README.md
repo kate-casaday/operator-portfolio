@@ -1,6 +1,6 @@
 # Kate Casaday: a year of building with Claude Code
 
-I am a healthcare operator.  I ran risk-adjustment and value-based-care operations inside a large medical group, built the revenue system for a healthcare services company, and since October 2025 have run my own consulting practice and co-founded a healthcare company.  For the last year, every one of those has been built and run with Claude Code as the working tool.  This repository is the evidence.
+I am a healthcare operator.  I ran risk-adjustment and value-based-care operations inside a large medical group, built the revenue system for a healthcare services company, and I have run my own consulting practice since 2023, full time since October 2025, and co-founded a healthcare company.  For the last year, every one of those has been built and run with Claude Code as the working tool.  This repository is the evidence.
 
 Three things are here.  Everything is real, nothing is a demo built for this page, and no client, patient, or partner data appears anywhere.
 
